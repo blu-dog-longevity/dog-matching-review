@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BLU Dog · Grouped source terms</title><link rel="icon" href="data:,">
+<title>BLU Dog · Source breakdown</title><link rel="icon" href="data:,">
 <style>
 :root{--ink:#193c49;--muted:#627479;--line:#d9e2df;--paper:#f6f7f2;--selected:#e6efeb}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 system-ui,sans-serif}
@@ -27,11 +27,11 @@ h2{font:32px/1.15 Georgia,serif;margin:0 0 24px;overflow-wrap:anywhere}h3{font-s
 .subgroups{border-top:1px solid var(--line);margin-top:20px;padding-top:16px}.subgroups p{font-size:12px;color:var(--muted);margin:0 0 7px}.subgroups button{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:6px 9px;font-size:12px;margin:4px 5px 0 0;text-align:left}
 .footnote{font-size:12px;color:var(--muted);margin-top:22px}.mobile-back{display:none}
 @media(max-width:720px){header{padding:22px 16px 18px}h1{font-size:24px}header p{font-size:14px}main{grid-template-columns:1fr;padding:0 16px}.detail{position:static;padding:22px}.term-list{max-height:280px;min-height:120px}.mobile-back{display:block;border:0;background:none;color:var(--muted);padding:0;margin-bottom:16px;font-size:12px}}
-.page-nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.page-nav a{font-size:13px;color:#156b88}
+.review-tabs{display:flex;gap:6px;border-bottom:1px solid #c9d7d8;margin-top:22px}.review-tabs a{padding:11px 16px;border:1px solid transparent;border-bottom:3px solid transparent;border-radius:7px 7px 0 0;color:#60747a;text-decoration:none;font-size:14px;font-weight:650}.review-tabs a:hover{background:#edf2ee;color:#193c49}.review-tabs a[aria-current=page]{background:white;border-color:#d7e1e2;border-bottom-color:#156b88;color:#156b88}.review-tabs a:focus-visible{outline:3px solid #b87f35;outline-offset:2px}@media(max-width:520px){.review-tabs a{padding:10px 12px;font-size:13px}}
 </style>
 </head>
 <body>
-<header><div class="page-nav"><div class="brand">BLU DOG · LOCAL PROTOTYPE</div><a href="./questionnaire.html">Try the dog questionnaire</a></div><h1>How source terms are grouped</h1><p>Choose a term on the left. See the original wording on the right.</p></header>
+<header><div class="brand">BLU DOG · MATCHING PROTOTYPE</div><h1>Source breakdown</h1><p>Choose Inputs or Outputs, then a group and term. See the original Excel wording behind it.</p><nav class="review-tabs" aria-label="Review sections"><a href="./questionnaire.html">Dog matching</a><a href="./index.html" aria-current="page">Source breakdown</a></nav></header>
 <main>
  <section class="picker" aria-label="Choose a grouped term">
   <div class="controls">
@@ -72,15 +72,15 @@ function sourceDetails(entry){
    originals.get(original).push(cell);
   }else refs.push(cell);
  }
- return '<div class="sources">'+(refs.length?'<p>Source cells: '+refs.map(esc).join(', ')+'</p>':'')+[...originals].map(([text,cells])=>'<details><summary>Original entry · '+cells.map(esc).join(', ')+'</summary><div class="original">'+esc(text)+'</div></details>').join('')+'</div>';
+ return '<div class="sources">'+(refs.length?'<p>Excel cells: '+refs.map(esc).join(', ')+'</p>':'')+[...originals].map(([text,cells])=>'<details><summary>Original entry · '+cells.map(esc).join(', ')+'</summary><div class="original">'+esc(text)+'</div></details>').join('')+'</div>';
 }
 function renderDetail(){
  const evidence=data.evidence[selected];
  const numeric=selected==='value.age_diagnosis'||selected==='value.weight';
  const heading=numeric?'Recorded values'+(selected==='value.weight'?' (pounds)':' (years)'):'Original wording grouped here';
- let html='<button class="mobile-back" id="back">← Choose another term</button><p class="breadcrumb">'+(side==='inputs'?'Input':'Output')+' / '+esc(currentGroup().label)+'</p><h2>'+esc(data.labels[selected])+'</h2><h3>'+heading+'</h3><p class="hint">Exact phrases from the source data. Longer entries may contain several phrases.</p>';
+ let html='<button class="mobile-back" id="back">← Choose another term</button><p class="breadcrumb">'+(side==='inputs'?'Input':'Output')+' / '+esc(currentGroup().label)+'</p><h2>'+esc(data.labels[selected])+'</h2><h3>'+heading+'</h3><p class="hint">Exact phrases from the Excel source. Longer entries may contain several phrases.</p>';
  html+=evidence.length?'<ul class="wordings">'+evidence.map(e=>'<li class="wording">'+esc(e.text)+(showSources?sourceDetails(e):'')+'</li>').join('')+'</ul>':'<p class="empty">No source wording has been mapped to this term yet.</p>';
- if(evidence.length)html+='<label class="source-toggle"><input id="sources" type="checkbox" '+(showSources?'checked':'')+'>Show source cells and original entries</label>';
+ if(evidence.length)html+='<label class="source-toggle"><input id="sources" type="checkbox" '+(showSources?'checked':'')+'>Show Excel cells and original entries</label>';
  const children=(data.children[selected]||[]).filter(id=>currentGroup().members.includes(id));
  if(children.length)html+='<div class="subgroups"><p>This broader group also includes:</p>'+children.map(id=>'<button data-term="'+id+'">'+esc(data.labels[id])+'</button>').join('')+'</div>';
  if(side==='outputs')html+='<p class="footnote">This groups wording. Declined or uncertain treatment mentions can appear here.</p>';

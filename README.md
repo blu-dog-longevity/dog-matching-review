@@ -2,6 +2,8 @@
 
 [Open the review page](https://blu-dog-longevity.github.io/dog-matching-review/)
 
+Use the top tabs to switch between **Dog matching** and **Source breakdown**. Source breakdown contains the original Inputs/Outputs grouping browser; select a term and enable **Show Excel cells and original entries** to trace the grouping back to its source wording.
+
 [Find matching dog cases](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html) — answer four labeled scales and symptom checkboxes, then see comparable cases, their reported therapies and a grouped therapy summary. **Load example dog** runs an example immediately. [Questionnaire rules and integration notes](QUESTIONNAIRE.md).
 
 Choose **Inputs** or **Outputs**, select a group, then select a term. The right panel shows the exact source phrases grouped under that term. Source cells and original treatment entries are optional.
