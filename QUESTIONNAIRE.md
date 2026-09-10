@@ -2,7 +2,7 @@
 
 [Open the questionnaire](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html)
 
-Owners answer four labeled 1–5 questions and check observed signs. The right panel shows which symptoms those answers contribute. The downloadable example preserves the profile, original answers, translation decisions, version and submission time.
+Owners answer four labeled 1–5 questions and check observed signs. The right panel shows which symptoms those answers contribute. **Find matching cases** shows comparable historical cases, therapies reported for each case, matching reasons and expandable therapy category counts. **Load example dog** fills the form and runs matching immediately. **Download answers** is an optional export of the profile, original answers, translation decisions, version and submission time.
 
 ## Draft conversion rules
 
@@ -24,13 +24,17 @@ The platform’s existing checkbox-plus-severity form has different semantics: a
 
 ## Integration boundary
 
-`questionnaire.json` is the shared definition of the questions, labels, conversion rules and review options. `questionnaire.js` renders the form and previews conversion. The local prototype also derives symptoms on the server using that same definition before matching.
+`questionnaire.json` is the shared definition of the questions, labels, conversion rules and review options. `questionnaire.js` renders the form and derives symptoms. `matcher.js` compares those symptoms and profile fields against `matching-cases.json`; `matching-results.js` renders the cases and reported therapies. The local Python prototype also derives symptoms on the server using that same question definition before matching. Browser and Python matching behavior are checked for parity.
+
+The public case snapshot contains 671 eligible historical records in 666 provisional case groups. It exports only normalized matching features, eligible reported therapies, grouping IDs and source-cell references. Names, contact fields and raw source narratives are omitted. The browser downloads that snapshot once and computes matches locally; entered answers are not sent to a server. Source references identify historical evidence, not a live patient record.
+
+Changing an answer clears previous matches until matching is run again. Fewer than three comparable groups withholds the aggregate therapy counts; available individual cases still show their recorded therapies. Missing/unmapped therapy data remains unknown. Reported use does not establish effectiveness.
 
 Keep the original answers, questionnaire version, observation window and submission time when integrating. Store derived symptoms with their question provenance so a later rule change can be reviewed. The downloadable JSON demonstrates the payload; it does not write to the database.
 
 Stool consistency will come from the BLU Dog poop-app data after the database connection and field mapping are defined. For now its status is `not_connected`, its derived symptom list is empty, and diarrhea/loose-stool checkboxes are excluded. Scooting and anal leakage remain direct owner observations; they are not inferred from a stool image.
 
-The public page previews the form and conversion only. The local matcher accepts this shape at `POST /api/match`:
+The public page now runs form → conversion → matching → reported therapies entirely in the browser. A future platform integration can instead call the local prototype's `POST /api/match` shape:
 
 ```json
 {
