@@ -2,64 +2,62 @@ export const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','
 
 export function deriveSymptoms(answers, schema) {
   if (!answers || typeof answers !== 'object' || Array.isArray(answers)) throw new Error('Answers must be an object.');
-  const scales = answers.scales ?? {};
-  const checked = answers.checked ?? [];
-  if (!scales || typeof scales !== 'object' || Array.isArray(scales)) throw new Error('Scale answers must be an object.');
-  if (!Array.isArray(checked)) throw new Error('Checked symptoms must be a list.');
-  const scaleIds = new Set(schema.scales.map(q => q.id));
-  const checkIds = new Set(schema.checkboxes.map(q => q.id));
-  if (Object.keys(scales).some(id => !scaleIds.has(id))) throw new Error('Unknown scale question.');
-  if (checked.some(id => !checkIds.has(id))) throw new Error('Unknown checkbox symptom.');
-  const decisions = schema.scales.map(q => {
-    const answer = scales[q.id] ?? null;
-    if (answer !== null && (!Number.isInteger(answer) || answer < 1 || answer > 5)) throw new Error('Choose a whole-number answer from 1 to 5.');
-    return {question_id:q.id, symptom_id:q.symptom_id, label:q.symptom_label, answer,
-      answer_label:answer === null ? 'Skipped' : answer + ' — ' + q.choices[answer-1],
-      flag:answer === null ? null : q.present_values.includes(answer),
-      rule:q.present_values.join(', ') + ' → ' + q.symptom_label};
+  const checked = answers.checked ?? [], severities = answers.severities ?? {};
+  if (!Array.isArray(checked) || !severities || typeof severities !== 'object' || Array.isArray(severities)) throw new Error('Provide checked symptoms and optional severity answers.');
+  const ids = new Set(schema.checkboxes.map(q => q.id));
+  if (checked.some(id => !ids.has(id)) || Object.keys(severities).some(id => !ids.has(id))) throw new Error('Unknown symptom question.');
+  if (Object.keys(answers).some(key => !['checked','severities'].includes(key))) throw new Error('Answers do not match the current questionnaire version.');
+  if (Object.values(severities).some(n => n !== null && (!Number.isInteger(n) || n < 0 || n > 5))) throw new Error('Choose a whole-number severity from 0 to 5.');
+  const decisions = schema.checkboxes.map(q => {
+    const selected = checked.includes(q.id), severity = selected ? severities[q.id] ?? null : null;
+    const label = !selected ? 'Not checked' : severity === null ? 'Present; severity not supplied' : severity === 0 ? '0 — Relieved' : severity+' — '+schema.severity_choices[severity-1];
+    return {question_id:q.id, symptom_id:q.symptom_id, label:q.symptom_label,
+      answer:severity ?? (selected ? true : null), answer_label:label, flag:selected ? severity !== 0 : null,
+      rule:'Checked or severity 1–5 → present; 0 → relieved.', source:q.source};
   });
-  for (const q of schema.checkboxes) {
-    const selected = checked.includes(q.id);
-    decisions.push({question_id:q.id, symptom_id:q.symptom_id, label:q.symptom_label,
-      answer:selected ? true : null, answer_label:selected ? 'Checked' : 'Not checked',
-      flag:selected ? true : null, rule:'Checked → ' + q.symptom_label});
-  }
   return {version:schema.version, timeframe:schema.timeframe,
-    answers:{scales:Object.fromEntries(schema.scales.map(q => [q.id, scales[q.id] ?? null])), checked:[...new Set(checked)]},
+    answers:{checked:[...new Set(checked)], severities:Object.fromEntries([...new Set(checked)].map(id => [id,severities[id] ?? null]))},
     symptoms:[...new Set(decisions.filter(d => d.flag === true).map(d => d.symptom_id))],
     decisions, stool:{source:'poop_app', status:'not_connected', symptoms:[]}};
 }
 
 export function renderDogForm(root, schema, options = schema.profile_options) {
   const choices = entries => entries.map(c => '<option value="'+esc(c.id)+'">'+esc(c.label)+'</option>').join('');
-  root.innerHTML = '<section class="form-section"><h2>About your dog</h2><p class="question-hint">Use an example dog for this review.</p>'+
+  const symptom = q => '<div class="symptom-item"><label class="symptom-check"><input type="checkbox" name="observed" value="'+q.id+'"><span>'+esc(q.label)+'</span></label>'+
+    '<fieldset class="severity-row" data-severity="'+q.id+'" hidden><legend>Severity (optional)</legend><div class="severity-choices">'+
+    schema.severity_choices.map((label,i) => '<label title="'+esc(label)+'"><input type="radio" name="severity-'+q.id+'" value="'+(i+1)+'" aria-label="'+esc(q.label)+' severity '+(i+1)+' — '+esc(label)+'"><span>'+(i+1)+'</span></label>').join('')+
+    '<label class="relieved"><input type="radio" name="severity-'+q.id+'" value="0" aria-label="'+esc(q.label)+' relieved"><span>Relieved</span></label></div><small>1 mild · 5 very severe</small></fieldset></div>';
+  root.innerHTML = '<section class="form-section"><h2>About your dog</h2><p class="question-hint">Start with anything you know. Every field is optional; results refine as you add details.</p>'+
     '<label for="dog-name">Dog’s name <span class="optional">(optional)</span></label><input id="dog-name" autocomplete="off" placeholder="Example dog">'+
-    '<label for="diagnosis">Reported condition</label><select id="diagnosis"><option value="">Choose a condition</option>'+choices(options.diagnosis)+'</select>'+
     '<label for="breed">Breed</label><select id="breed"><option value="">Not sure / leave blank</option>'+choices(options.breed)+'</select>'+
-    '<div class="profile-pair"><div><label for="age">Age at diagnosis</label><input id="age" type="number" min="0.1" max="50" step="0.1" placeholder="Years"></div>'+
-    '<div><label for="weight">Recorded weight</label><input id="weight" type="number" min="0.1" max="400" step="0.1" placeholder="Pounds"></div></div>'+
-    '<label for="sex">Sex</label><select id="sex"><option value="">Not sure / leave blank</option><option value="sex.female">Female</option><option value="sex.male">Male</option></select>'+
+    '<div class="profile-pair"><div><label for="weight">Weight</label><input id="weight" type="number" min="0.1" max="400" step="0.1" placeholder="Pounds"></div>'+
+    '<div><label for="sex">Sex</label><select id="sex"><option value="">Leave blank</option><option value="sex.female">Female</option><option value="sex.male">Male</option></select></div></div>'+
+    '<label for="diagnosis">Cancer / reported diagnosis <span class="optional">(if known)</span></label><select id="diagnosis"><option value="">Not sure / leave blank</option>'+choices(options.diagnosis)+'</select>'+
+    '<label for="age">Age at diagnosis <span class="optional">(if known)</span></label><input id="age" type="number" min="0.1" max="50" step="0.1" placeholder="Years at diagnosis, not current age">'+
     '<label class="plain-check"><input id="suspected" type="checkbox">Include cases with suspected diagnoses</label></section>'+
-    '<section class="form-section"><h2>Day to day</h2><p class="question-hint">Think about the past 7 days. Skip anything you’re not sure about.</p>'+
-    schema.scales.map(q => '<fieldset class="scale-question"><legend>'+esc(q.label)+'</legend><div class="scale-choices">'+q.choices.map((label,i) =>
-      '<label class="scale-option"><input type="radio" name="scale-'+esc(q.id)+'" value="'+(i+1)+'"><span><strong>'+(i+1)+'</strong><small>'+esc(label)+'</small></span></label>'
-    ).join('')+'</div><button type="button" class="skip-question" data-skip="'+q.id+'">Not sure / skip</button></fieldset>').join('')+'</section>'+
-    '<section class="form-section"><h2>Signs you’ve noticed</h2><p class="question-hint">Check any you’ve noticed in the past 7 days. Unchecked items won’t add a symptom.</p><div class="symptom-checks">'+
-    schema.checkboxes.map(q => '<label class="symptom-check"><input type="checkbox" name="observed" value="'+q.id+'"><span>'+esc(q.label)+'</span></label>').join('')+'</div></section>'+
-    '<section class="stool-pending"><h3>Stool information</h3><p>This will come from the BLU Dog poop app once it is connected. Stool consistency is not used in this prototype yet.</p></section>';
-  root.addEventListener('click', event => {
-    const skip = event.target.closest('[data-skip]');
-    if (!skip) return;
-    root.querySelectorAll('input[name="scale-'+skip.dataset.skip+'"]').forEach(input => input.checked = false);
-    root.dispatchEvent(new Event('change', {bubbles:true}));
-  });
+    '<section class="form-section"><h2>Symptoms you’ve noticed</h2><p class="question-hint">These use BLU Dog’s existing symptom names. Check anything present, then optionally rate its severity. Even a mild symptom counts.</p><div class="symptom-checks">'+
+    schema.checkboxes.filter(q => q.source === 'existing_platform').map(symptom).join('')+'</div></section>'+
+    '<details class="form-section extra-symptoms"><summary>Additional signs from the PRO reports</summary><p class="question-hint">Proposed new questions: these are not in the existing BLU Dog intake. You can try them in this prototype.</p><div class="symptom-checks">'+
+    schema.checkboxes.filter(q => q.source === 'proposed_question').map(symptom).join('')+'</div></details>'+
+    '<section class="stool-pending"><h3>Stool information</h3><p>Diarrhea and loose-stool matching will use the BLU Dog poop app. That connection is not covered in this prototype yet.</p></section>'+
+    '<details class="coverage-notes"><summary>Existing questions not covered by this prototype</summary><p class="question-hint">No cancer-context PRO evidence is mapped to these questions yet, so they cannot refine matching:</p><ul>'+schema.uncovered.map(q => '<li>'+esc(q.label)+'</li>').join('')+'</ul><p class="question-hint">Treatment-related signs need their source context reviewed. Current age and non-cancer conditions are also not mapped. <a href="./INPUT-ALIGNMENT.md">Full question alignment</a></p></details>';
+  root.addEventListener('change', () => syncSeverity(root));
 }
 
-export function readAnswers(root, schema) {
-  return {scales:Object.fromEntries(schema.scales.map(q => {
-    const selected = root.querySelector('input[name="scale-'+q.id+'"]:checked');
-    return [q.id, selected ? Number(selected.value) : null];
-  })), checked:[...root.querySelectorAll('input[name="observed"]:checked')].map(input => input.value)};
+function syncSeverity(root) {
+  for (const input of root.querySelectorAll('input[name=observed]')) {
+    const field = root.querySelector('[data-severity="'+input.value+'"]');
+    field.hidden = !input.checked;
+    if (!input.checked) field.querySelectorAll('input').forEach(radio => radio.checked = false);
+  }
+}
+
+export function readAnswers(root) {
+  const checked = [...root.querySelectorAll('input[name="observed"]:checked')].map(input => input.value);
+  return {checked, severities:Object.fromEntries(checked.map(id => {
+    const selected = root.querySelector('input[name="severity-'+id+'"]:checked');
+    return [id,selected ? Number(selected.value) : null];
+  }))};
 }
 
 export function readProfile(root) {
@@ -72,22 +70,20 @@ export function readProfile(root) {
 
 export function renderTranslation(root, result) {
   const positive = result.decisions.filter(d => d.flag === true);
-  root.innerHTML = '<h2>Symptoms for matching</h2><div class="derived-symptoms" aria-live="polite">'+
-    (positive.length ? positive.map(d => '<span class="derived-chip">'+esc(d.label)+'</span>').join('') : '<p class="question-hint">No symptoms added yet.</p>')+'</div>'+
-    '<p class="question-hint">Skipped questions and unchecked signs stay unknown. Answers that don’t flag a symptom aren’t used as evidence of absence in the old records.</p>'+
-    '<details class="conversion-rules"><summary>How the answers translate</summary><p class="question-hint">Draft rules for team review. Each 1–5 question has its own meaning.</p>'+
-    '<div class="conversion-rows">'+result.decisions.filter(d => !d.question_id.startsWith('sign.') || d.flag === true).map(d =>
-      '<div class="conversion-row"><strong>'+esc(d.label)+'</strong><span>'+esc(d.answer_label)+' → '+(d.flag === null ? 'Unknown' : d.flag ? 'Add symptom' : 'Not flagged')+'</span><small>'+esc(d.rule)+'</small></div>'
-    ).join('')+'</div></details>';
+  root.innerHTML = '<h2>Symptoms used for matching</h2><div class="derived-symptoms">'+
+    (positive.length ? positive.map(d => '<span class="derived-chip">'+esc(d.label)+'</span>').join('') : '<p class="question-hint">No symptoms selected. General descriptors can still find cases.</p>')+'</div>'+
+    '<details class="conversion-rules"><summary>How your answers are used</summary><p class="question-hint">Each selected symptom counts once. Severity is saved for later integration; the old reports do not have comparable severity scores. Relieved symptoms are not added. Unchecked symptoms stay unknown.</p>'+
+    result.decisions.filter(d => d.flag !== null).map(d => '<div class="conversion-row"><strong>'+esc(d.label)+'</strong><span>'+esc(d.answer_label)+' → '+(d.flag ? 'Used for matching' : 'Not added')+'</span></div>').join('')+'</details>';
 }
 
-export function loadExample(root, schema) {
+export function loadExample(root) {
   root.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(input => input.checked = false);
   const values = {'dog-name':'Example dog', diagnosis:'cancer.lymphoma', breed:'', age:'8', weight:'', sex:'sex.male'};
   for (const [id,value] of Object.entries(values)) root.querySelector('#'+id).value = value;
-  for (const [id,value] of Object.entries({energy:2,anxiety:1,appetite:3,mobility:5})) {
-    root.querySelector('input[name="scale-'+id+'"][value="'+value+'"]').checked = true;
+  for (const id of ['sign.low_energy','sign.enlarged_lymph_nodes']) {
+    root.querySelector('input[name=observed][value="'+id+'"]').checked = true;
+    root.querySelector('input[name="severity-'+id+'"][value="2"]').checked = true;
   }
-  root.querySelector('input[name=observed][value="sign.enlarged_lymph_nodes"]').checked = true;
+  syncSeverity(root);
   root.dispatchEvent(new Event('change', {bubbles:true}));
 }

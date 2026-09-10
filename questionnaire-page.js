@@ -7,24 +7,21 @@ try {
   const responses = await Promise.all([fetch('./questionnaire.json'), fetch('./matching-cases.json')]);
   if (responses.some(r => !r.ok)) throw new Error('The questions or matching records could not be loaded. Please reload the page.');
   const [schema, data] = await Promise.all(responses.map(r => r.json()));
-  let hasResults = false;
   renderDogForm($('dog-fields'), schema);
   const assessment = () => deriveSymptoms(readAnswers($('query'), schema), schema);
+  let timer;
   const update = () => {
-    renderTranslation($('translation'), assessment());
-    if (hasResults) {
-      $('matching-results').innerHTML = '<div class="results-placeholder"><h2>Answers updated</h2><p>Select Find matching cases again to refresh the results.</p></div>';
-      hasResults = false;
-    }
+    const translated = assessment();
+    renderTranslation($('translation'), translated);
+    renderMatches($('matching-results'), match({...readProfile($('query')), symptoms:translated.symptoms}, data), data);
   };
-  $('query').addEventListener('input', update);
-  $('query').addEventListener('change', update);
+  const schedule = () => {clearTimeout(timer); timer = setTimeout(update, 150);};
+  $('query').addEventListener('input', schedule);
+  $('query').addEventListener('change', schedule);
   $('query').addEventListener('submit', event => {
     event.preventDefault();
-    const translated = assessment();
-    const result = match({...readProfile($('query')), symptoms:translated.symptoms}, data);
-    renderMatches($('matching-results'), result, data);
-    hasResults = true;
+    clearTimeout(timer);
+    update();
     $('matching-results').focus({preventScroll:true});
     $('matching-results').scrollIntoView({behavior:'smooth', block:'start'});
   });

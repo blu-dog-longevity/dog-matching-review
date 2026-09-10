@@ -1,178 +1,319 @@
 {
-  "version": "dog-check-in-v1-draft",
-  "timeframe": "past_7_days",
-  "scales": [
-    {
-      "id": "energy",
-      "label": "How is your dog’s energy compared with usual?",
-      "choices": [
-        "Much lower",
-        "Lower",
-        "Usual",
-        "Higher",
-        "Much higher"
-      ],
-      "symptom_id": "sign.low_energy",
-      "symptom_label": "Low energy / lethargy",
-      "present_values": [
-        1,
-        2
-      ]
-    },
-    {
-      "id": "anxiety",
-      "label": "How anxious or unsettled has your dog seemed?",
-      "choices": [
-        "Calm",
-        "Mildly anxious",
-        "Moderately anxious",
-        "Very anxious",
-        "Extremely anxious"
-      ],
-      "symptom_id": "sign.anxiety",
-      "symptom_label": "Anxiety",
-      "present_values": [
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    {
-      "id": "appetite",
-      "label": "How is your dog’s appetite compared with usual?",
-      "choices": [
-        "Not eating",
-        "Eating less",
-        "Usual",
-        "Eating more",
-        "Eating much more"
-      ],
-      "symptom_id": "sign.appetite_loss",
-      "symptom_label": "Appetite loss",
-      "present_values": [
-        1,
-        2
-      ]
-    },
-    {
-      "id": "mobility",
-      "label": "How easily has your dog been getting around?",
-      "choices": [
-        "Unable",
-        "Great difficulty",
-        "Some difficulty",
-        "Slight difficulty",
-        "Normally"
-      ],
-      "symptom_id": "sign.mobility_limited",
-      "symptom_label": "Limited mobility",
-      "present_values": [
-        1,
-        2,
-        3,
-        4
-      ]
-    }
-  ],
+  "version": "dog-check-in-v2-platform-aligned",
+  "timeframe": "current_symptoms",
+  "scales": [],
   "checkboxes": [
     {
-      "id": "sign.anal_leakage",
-      "label": "Leakage from the anal area",
-      "symptom_id": "sign.anal_leakage",
-      "symptom_label": "Anal leakage"
+      "id": "sign.pain_or_discomfort",
+      "label": "Pain or discomfort",
+      "symptom_id": "sign.pain_or_discomfort",
+      "symptom_label": "Pain or discomfort",
+      "source": "existing_platform",
+      "case_groups": 48,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
-      "id": "sign.cough",
-      "label": "Cough",
-      "symptom_id": "sign.cough",
-      "symptom_label": "Cough"
+      "id": "sign.limping_or_stiffness",
+      "label": "Limping or stiffness",
+      "symptom_id": "sign.limping_or_stiffness",
+      "symptom_label": "Limping or stiffness",
+      "source": "existing_platform",
+      "case_groups": 16,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
-      "id": "sign.difficulty_swallowing",
-      "label": "Difficulty swallowing",
-      "symptom_id": "sign.difficulty_swallowing",
-      "symptom_label": "Difficulty swallowing"
+      "id": "sign.low_energy",
+      "label": "Low energy / lethargy",
+      "symptom_id": "sign.low_energy",
+      "symptom_label": "Low energy / lethargy",
+      "source": "existing_platform",
+      "case_groups": 49,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
-      "id": "sign.discomfort",
-      "label": "Discomfort",
-      "symptom_id": "sign.discomfort",
-      "symptom_label": "Discomfort"
-    },
-    {
-      "id": "sign.enlarged_lymph_nodes",
-      "label": "Swollen lymph nodes, already noticed or reported by your vet",
-      "symptom_id": "sign.enlarged_lymph_nodes",
-      "symptom_label": "Enlarged lymph nodes"
-    },
-    {
-      "id": "sign.foot_chewing",
-      "label": "Foot chewing",
-      "symptom_id": "sign.foot_chewing",
-      "symptom_label": "Foot chewing"
-    },
-    {
-      "id": "sign.liver_values_increasing",
-      "label": "Your vet reported rising liver lab values",
-      "symptom_id": "sign.liver_values_increasing",
-      "symptom_label": "Increasing liver laboratory values; analyte unspecified"
-    },
-    {
-      "id": "sign.inflammation",
-      "label": "Your vet reported inflammation",
-      "symptom_id": "sign.inflammation",
-      "symptom_label": "Inflammation; unspecified"
-    },
-    {
-      "id": "sign.limping",
-      "label": "Limping",
-      "symptom_id": "sign.limping",
-      "symptom_label": "Limping"
-    },
-    {
-      "id": "sign.pain",
-      "label": "Pain",
-      "symptom_id": "sign.pain",
-      "symptom_label": "Pain"
-    },
-    {
-      "id": "sign.scooting",
-      "label": "Scooting or dragging their bottom",
-      "symptom_id": "sign.scooting",
-      "symptom_label": "Scooting"
-    },
-    {
-      "id": "sign.seizures",
-      "label": "Seizures",
-      "symptom_id": "sign.seizures",
-      "symptom_label": "Seizures"
-    },
-    {
-      "id": "sign.unwell",
-      "label": "Generally seeming unwell",
-      "symptom_id": "sign.unwell",
-      "symptom_label": "Unwell; unspecified"
-    },
-    {
-      "id": "sign.urinary_incontinence",
-      "label": "Urine leaking or accidents",
-      "symptom_id": "sign.urinary_incontinence",
-      "symptom_label": "Urinary incontinence"
-    },
-    {
-      "id": "sign.vomiting",
-      "label": "Vomiting",
-      "symptom_id": "sign.vomiting",
-      "symptom_label": "Vomiting"
+      "id": "sign.appetite_loss",
+      "label": "Appetite loss",
+      "symptom_id": "sign.appetite_loss",
+      "symptom_label": "Appetite loss",
+      "source": "existing_platform",
+      "case_groups": 58,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
       "id": "sign.weight_loss",
       "label": "Weight loss",
       "symptom_id": "sign.weight_loss",
-      "symptom_label": "Weight loss"
+      "symptom_label": "Weight loss",
+      "source": "existing_platform",
+      "case_groups": 29,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.vomiting",
+      "label": "Vomiting",
+      "symptom_id": "sign.vomiting",
+      "symptom_label": "Vomiting",
+      "source": "existing_platform",
+      "case_groups": 8,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.excessive_thirst",
+      "label": "Excessive thirst",
+      "symptom_id": "sign.excessive_thirst",
+      "symptom_label": "Excessive thirst",
+      "source": "existing_platform",
+      "case_groups": 5,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.cough",
+      "label": "Coughing",
+      "symptom_id": "sign.cough",
+      "symptom_label": "Coughing",
+      "source": "existing_platform",
+      "case_groups": 13,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.breathing_difficulty",
+      "label": "Labored breathing",
+      "symptom_id": "sign.breathing_difficulty",
+      "symptom_label": "Labored breathing",
+      "source": "existing_platform",
+      "case_groups": 17,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.skin_irritation",
+      "label": "Itching or skin irritation",
+      "symptom_id": "sign.skin_irritation",
+      "symptom_label": "Itching or skin irritation",
+      "source": "existing_platform",
+      "case_groups": 8,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.mouth_pain",
+      "label": "Bad breath / mouth pain",
+      "symptom_id": "sign.mouth_pain",
+      "symptom_label": "Bad breath / mouth pain",
+      "source": "existing_platform",
+      "case_groups": 1,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.night_restlessness",
+      "label": "Restlessness at night",
+      "symptom_id": "sign.night_restlessness",
+      "symptom_label": "Restlessness at night",
+      "source": "existing_platform",
+      "case_groups": 1,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.anxiety",
+      "label": "Anxiety",
+      "symptom_id": "sign.anxiety",
+      "symptom_label": "Anxiety",
+      "source": "existing_platform",
+      "case_groups": 5,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.incontinence",
+      "label": "Incontinence",
+      "symptom_id": "sign.incontinence",
+      "symptom_label": "Incontinence",
+      "source": "existing_platform",
+      "case_groups": 9,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.seizures",
+      "label": "Seizures",
+      "symptom_id": "sign.seizures",
+      "symptom_label": "Seizures",
+      "source": "existing_platform",
+      "case_groups": 21,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.lump_swelling",
+      "label": "Visible lump or swelling",
+      "symptom_id": "sign.lump_swelling",
+      "symptom_label": "Visible lump or swelling",
+      "source": "existing_platform",
+      "case_groups": 20,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.bleeding_bruising",
+      "label": "Bleeding or bruising",
+      "symptom_id": "sign.bleeding_bruising",
+      "symptom_label": "Bleeding or bruising",
+      "source": "existing_platform",
+      "case_groups": 32,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.fever_infection",
+      "label": "Fever or infection episodes",
+      "symptom_id": "sign.fever_infection",
+      "symptom_label": "Fever or infection episodes",
+      "source": "existing_platform",
+      "case_groups": 7,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.enlarged_lymph_nodes",
+      "label": "Swollen lymph nodes",
+      "symptom_id": "sign.enlarged_lymph_nodes",
+      "symptom_label": "Swollen lymph nodes",
+      "source": "existing_platform",
+      "case_groups": 30,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.difficulty_swallowing",
+      "label": "Difficulty swallowing",
+      "symptom_id": "sign.difficulty_swallowing",
+      "symptom_label": "Difficulty swallowing",
+      "source": "existing_platform",
+      "case_groups": 2,
+      "note": "Historical wording maps to this answer; historical severity is unknown."
+    },
+    {
+      "id": "sign.mobility_limited",
+      "label": "Limited mobility",
+      "symptom_id": "sign.mobility_limited",
+      "symptom_label": "Limited mobility",
+      "source": "proposed_question",
+      "case_groups": 34,
+      "note": "Limited mobility does not establish limping or stiffness; keep this separate."
+    },
+    {
+      "id": "sign.anal_leakage",
+      "label": "Anal leakage",
+      "symptom_id": "sign.anal_leakage",
+      "symptom_label": "Anal leakage",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "The source does not identify what leaked; do not equate this with fecal incontinence."
+    },
+    {
+      "id": "sign.foot_chewing",
+      "label": "Foot chewing",
+      "symptom_id": "sign.foot_chewing",
+      "symptom_label": "Foot chewing",
+      "source": "proposed_question",
+      "case_groups": 2,
+      "note": "Chewing alone does not establish itching."
+    },
+    {
+      "id": "sign.inflammation",
+      "label": "Inflammation",
+      "symptom_id": "sign.inflammation",
+      "symptom_label": "Inflammation",
+      "source": "proposed_question",
+      "case_groups": 7,
+      "note": "Location unspecified; do not infer skin or joint disease."
+    },
+    {
+      "id": "sign.liver_values_increasing",
+      "label": "Rising liver lab values",
+      "symptom_id": "sign.liver_values_increasing",
+      "symptom_label": "Rising liver lab values",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Reported by a vet; the analyte is unspecified."
+    },
+    {
+      "id": "sign.scooting",
+      "label": "Scooting",
+      "symptom_id": "sign.scooting",
+      "symptom_label": "Scooting",
+      "source": "proposed_question",
+      "case_groups": 2,
+      "note": "Dragging the bottom; do not infer itching or pain."
+    },
+    {
+      "id": "sign.unwell",
+      "label": "Generally unwell",
+      "symptom_id": "sign.unwell",
+      "symptom_label": "Generally unwell",
+      "source": "proposed_question",
+      "case_groups": 11,
+      "note": "Nonspecific report; no particular symptom is inferred."
+    },
+    {
+      "id": "sign.urinary_difficulty",
+      "label": "Difficulty urinating",
+      "symptom_id": "sign.urinary_difficulty",
+      "symptom_label": "Difficulty urinating",
+      "source": "proposed_question",
+      "case_groups": 3,
+      "note": "Straining or difficulty passing urine is distinct from incontinence."
+    },
+    {
+      "id": "sign.frequent_urination",
+      "label": "Frequent urination",
+      "symptom_id": "sign.frequent_urination",
+      "symptom_label": "Frequent urination",
+      "source": "proposed_question",
+      "case_groups": 5,
+      "note": "Frequency does not establish leakage or excessive thirst."
+    },
+    {
+      "id": "sign.nausea",
+      "label": "Nausea",
+      "symptom_id": "sign.nausea",
+      "symptom_label": "Nausea",
+      "source": "proposed_question",
+      "case_groups": 3,
+      "note": "The source cancer-symptom column does not establish that nausea followed treatment."
     }
   ],
+  "severity_choices": [
+    "Mild",
+    "Noticeable",
+    "Moderate",
+    "Severe",
+    "Very severe"
+  ],
+  "uncovered": [
+    {
+      "id": "sign.constipation",
+      "label": "Constipation",
+      "reason": "No cancer-context PRO phrases mapped to this question yet."
+    },
+    {
+      "id": "sign.ear_discomfort",
+      "label": "Ear discomfort",
+      "reason": "No cancer-context PRO phrases mapped to this question yet."
+    },
+    {
+      "id": "sign.confusion",
+      "label": "Confusion / disorientation",
+      "reason": "No cancer-context PRO phrases mapped to this question yet."
+    },
+    {
+      "id": "sign.nausea_after_treatment",
+      "label": "Nausea after treatment",
+      "reason": "No cancer-context PRO phrases mapped to this question yet."
+    },
+    {
+      "id": "sign.mouth_sores",
+      "label": "Mouth sores",
+      "reason": "No cancer-context PRO phrases mapped to this question yet."
+    },
+    {
+      "id": "sign.fatigue_after_chemo",
+      "label": "Fatigue after chemo",
+      "reason": "No cancer-context PRO phrases mapped to this question yet."
+    }
+  ],
+  "platform_code_revision": "ebfcc636be77bda0c96547ff929529f3ea5752db",
   "deferred": {
     "source": "poop_app",
     "status": "not_connected",

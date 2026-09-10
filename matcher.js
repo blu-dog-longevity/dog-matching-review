@@ -17,23 +17,30 @@ function ancestors(id, data) {
   return result;
 }
 
+function symptomGroups(ids, data) {
+  const aliases = Object.fromEntries((data.symptom_groups ?? []).flatMap(g => g.members.map(id => [id,g.id])));
+  return [...new Set(ids.map(id => aliases[id] ?? id))].sort(order);
+}
+
 function compare(query, record, data, labels) {
   const f = record.features;
-  const diagnoses = f.diagnoses.filter(d => ancestors(d.id, data).has(query.diagnosis) &&
-    (d.certainty === 'reported' || query.include_suspected));
-  if (!diagnoses.length) return null;
-  let known = WEIGHTS.diagnosis, matched = known, requested = known, fields = 1;
-  const reasons = [{field:'Diagnosis', status:'agreement', detail:labels[query.diagnosis],
-    source_cells:[...new Set(diagnoses.map(d => d.source_cell))].sort(order),
-    certainty:diagnoses.some(d => d.certainty === 'reported') ? 'reported' : 'suspected'}];
-  const unknown = [];
+  let known = 0, matched = 0, requested = 0;
+  const reasons = [], unknown = [];
+  if (query.diagnosis) {
+    const diagnoses = f.diagnoses.filter(d => ancestors(d.id, data).has(query.diagnosis) &&
+      (d.certainty === 'reported' || query.include_suspected));
+    if (!diagnoses.length) return null;
+    known = matched = requested = WEIGHTS.diagnosis;
+    reasons.push({field:'Diagnosis', status:'agreement', detail:labels[query.diagnosis],
+      source_cells:[...new Set(diagnoses.map(d => d.source_cell))].sort(order),
+      certainty:diagnoses.some(d => d.certainty === 'reported') ? 'reported' : 'suspected'});
+  }
   for (const key of ['breed', 'sex', 'age_diagnosis', 'weight']) {
     const q = query[key];
     if (!supplied(q)) continue;
     requested += WEIGHTS[key];
     const recorded = f[key];
     if (recorded === null) { unknown.push(key); continue; }
-    fields++;
     known += WEIGHTS[key];
     let similarity, detail;
     if (key === 'age_diagnosis') {
@@ -50,25 +57,37 @@ function compare(query, record, data, labels) {
     reasons.push({field:key, status:similarity === 1 ? 'agreement' : similarity > 0 ? 'partial' : 'difference',
       detail, source_cells:record.feature_sources[key] ?? []});
   }
-  const symptoms = [...new Set(query.symptoms ?? [])];
-  if (symptoms.length) {
-    requested += WEIGHTS.symptoms;
-    const overlap = symptoms.filter(id => f.symptoms.includes(id));
-    if (overlap.length) {
-      fields++;
-      const support = WEIGHTS.symptoms * overlap.length / symptoms.length;
-      known += support;
-      matched += support;
-      reasons.push({field:'Cancer-context symptoms', status:'agreement',
-        detail:overlap.sort(order).map(id => labels[id]).join(', '), source_cells:record.feature_sources.symptoms ?? []});
-    }
-    const missing = symptoms.filter(id => !overlap.includes(id));
-    if (missing.length) unknown.push('unmentioned symptoms: ' + missing.sort(order).map(id => labels[id] ?? id).join(', '));
+  const symptoms = symptomGroups(query.symptoms ?? [], data), recordedSymptoms = symptomGroups(f.symptoms, data);
+  const overlap = symptoms.filter(id => recordedSymptoms.includes(id));
+  requested += WEIGHTS.symptoms * symptoms.length;
+  for (const id of overlap) {
+    known += WEIGHTS.symptoms;
+    matched += WEIGHTS.symptoms;
+    reasons.push({field:'Symptom', status:'agreement', detail:labels[id] ?? id, source_cells:record.feature_sources.symptoms ?? []});
   }
-  const agreement = matched / known, coverage = known / requested;
-  if (fields < 2 || coverage < .5 || agreement < .6) return null;
+  const missing = symptoms.filter(id => !overlap.includes(id));
+  if (missing.length) unknown.push('unmentioned symptoms: ' + missing.map(id => labels[id] ?? id).join(', '));
+  if (!matched) return null;
   return {case_id:record.id, source_row:record.source_row, group_id:record.group_id,
-    agreement:round(agreement), coverage:round(coverage), rank_support:matched/requested, reasons, unknown};
+    agreement:round(matched/known), coverage:round(known/requested), rank_support:matched/requested,
+    shared_symptoms:overlap.length, requested_symptoms:symptoms.length, reasons, unknown};
+}
+
+function therapySupport(data) {
+  const therapies = new Map(), categories = new Map(), groups = new Set();
+  for (const record of data.cases) {
+    groups.add(record.group_id);
+    for (const t of record.interventions) {
+      if (!therapies.has(t.id)) therapies.set(t.id, new Set());
+      therapies.get(t.id).add(record.group_id);
+      for (const id of t.categories) {
+        if (!categories.has(id)) categories.set(id, new Set());
+        categories.get(id).add(record.group_id);
+      }
+    }
+  }
+  return {therapies:Object.fromEntries([...therapies].map(([id,gs]) => [id,gs.size])),
+    categories:Object.fromEntries([...categories].map(([id,gs]) => [id,gs.size])), case_groups:groups.size};
 }
 
 export function summarize(groups, data) {
@@ -106,8 +125,8 @@ export function summarize(groups, data) {
 }
 
 export function match(query, data) {
-  if (!query.diagnosis || !Object.keys(WEIGHTS).some(k => k !== 'diagnosis' && supplied(query[k]))) {
-    return {status:'insufficient_input', message:'Choose a reported condition and at least one additional characteristic.', groups:[], categories:[]};
+  if (!Object.keys(WEIGHTS).some(k => supplied(query[k]))) {
+    return {status:'insufficient_input', message:'Add any dog descriptor or symptom to find comparable cases.', groups:[], categories:[]};
   }
   for (const key of ['age_diagnosis', 'weight']) {
     if (supplied(query[key]) && !(Number(query[key]) > 0 && Number(query[key]) < 1000)) {
@@ -130,6 +149,12 @@ export function match(query, data) {
   const selected = groups.slice(0, 20);
   const base = {groups:selected, qualifying_groups:groups.length, selected_groups:selected.length,
     selected_records:selected.reduce((n, g) => n + g.records.length, 0), count_unit:'provisional case groups', weights:WEIGHTS, categories:[]};
-  if (selected.length < 3) return {...base, status:'insufficient_cohort', message:'Fewer than three comparable case groups; intervention counts are withheld.'};
-  return {...base, ...summarize(selected, data), status:'ok', message:'Mapped historical intervention reports among the selected comparable case groups.'};
+  if (!selected.length) return {...base, status:'no_matches', message:'No recorded cases share these descriptors. Try a broader condition or another descriptor.'};
+  const support = therapySupport(data), summary = summarize(selected, data);
+  summary.categories = summary.categories.map(c => ({...c, global_count:support.categories[c.id] ?? 0,
+    details:c.details.filter(t => (support.therapies[t.id] ?? 0) >= 10).map(t => ({...t, global_count:support.therapies[t.id]}))
+  })).filter(c => c.global_count >= 10);
+  return {...base, ...summary, status:'ok', message:'Reported therapies with at least 10 supporting case groups across the dataset.',
+    minimum_therapy_support:10, dataset_case_groups:support.case_groups, therapy_support:support.therapies,
+    match_scope:query.diagnosis ? 'condition' : query.symptoms?.length ? 'symptoms' : 'general'};
 }

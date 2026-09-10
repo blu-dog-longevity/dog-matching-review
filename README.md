@@ -1,17 +1,15 @@
-# BLU Dog source-term review
+# BLU Dog matching review
 
-[Open the review page](https://blu-dog-longevity.github.io/dog-matching-review/)
+[Open dog matching](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html) · [Open source breakdown](https://blu-dog-longevity.github.io/dog-matching-review/)
 
-Use the top tabs to switch between **Dog matching** and **Source breakdown**. Source breakdown contains the original Inputs/Outputs grouping browser; select a term and enable **Show Excel cells and original entries** to trace the grouping back to its source wording.
+Start with any dog descriptor or symptom. Results update automatically as information is added. A diagnosis is optional; when supplied, it restricts cases to that diagnosis. Each case shows matching reasons and its reported therapies.
 
-[Find matching dog cases](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html) — answer four labeled scales and symptom checkboxes, then see comparable cases, their reported therapies and a grouped therapy summary. **Load example dog** runs an example immediately. [Questionnaire rules and integration notes](QUESTIONNAIRE.md).
+The form follows BLU Dog's symptom checkboxes with optional severity ratings: 1–5 means present, 0 means relieved. It includes 20 existing symptom questions and 10 proposed additions from the PRO reports. Six existing questions have no usable mapping yet; diarrhea and loose-stool inputs await the poop app. [Question alignment and gaps](INPUT-ALIGNMENT.md) · [Conversion and scoring rules](QUESTIONNAIRE.md).
 
-Choose **Inputs** or **Outputs**, select a group, then select a term. The right panel shows the exact source phrases grouped under that term. Source cells and original treatment entries are optional.
+Therapy outputs require at least 10 supporting case groups across the full dataset and at least one report among the matching cases. Counts show **matching cases** and **overall reports** separately. A rare input can still help find a case. One matching case does not establish broad support within that specific profile, and reported use does not establish effectiveness.
 
-This is a review prototype. Grouping a treatment mention does not establish that it was used or effective. Mappings remain partial and open to review.
+The Source breakdown tab shows the original Excel phrases and optional cell references for input and output groups. It retains less-supported, declined and uncertain treatment mentions as source evidence; these are distinct from the therapies eligible for matching results.
 
-The term viewer is a standalone HTML file with embedded vocabulary and source-phrase data. The questionnaire and matcher run entirely in the browser using adjacent JSON, JavaScript and CSS files. Matching uses 671 historical records in 666 provisional case groups, with names, contact information and raw narratives omitted. Only normalized matching features, eligible reported therapies and source-cell references are exported. Entered answers stay in the browser unless downloaded; there is no production backend connection.
+The browser uses an explicit snapshot of 671 records in 666 provisional case groups. Names, contact information and raw case narratives are omitted. Entered answers stay in the browser unless downloaded. There is no production database connection.
 
-Matching rules and cutoffs are experimental. Therapies describe reported use, not effectiveness or recommendations. Missing source symptoms remain unknown, mapping is partial, and therapy frequency counts are withheld when fewer than three case groups match. Stool consistency awaits the future BLU Dog poop-app connection.
-
-GitHub Pages serves this directory from the root of `main`. The term viewer can be opened directly for offline review; serve the directory over HTTP to use the matcher locally. Snapshots are generated from the BLU Dog workspace mapping artifacts; source mapping changes should be made there and regenerated before committing an update here. The public matcher is checked against the local Python matcher for case selection, scores, therapy counts, missing evidence, suspected diagnoses, repeated records and episode isolation.
+GitHub Pages serves this directory from the root of `main`. Serve the directory over HTTP to run it locally. Generated snapshots and questions come from the BLU Dog workspace's mapping scripts. Browser scoring and conversion are checked against the local Python implementation, including sparse profiles, refining rankings, therapy support, missing information, diagnosis certainty and repeated-record counting.

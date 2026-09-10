@@ -1,59 +1,60 @@
-# Dog questionnaire
+# Dog questionnaire and matching rules
 
-[Open the questionnaire](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html)
+[Open the prototype](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html) · [Question alignment and gaps](INPUT-ALIGNMENT.md)
 
-Owners answer four labeled 1–5 questions and check observed signs. The right panel shows which symptoms those answers contribute. **Find matching cases** shows comparable historical cases, therapies reported for each case, matching reasons and expandable therapy category counts. **Load example dog** fills the form and runs matching immediately. **Download answers** is an optional export of the profile, original answers, translation decisions, version and submission time.
+The form uses the existing BLU Dog symptom names and checkbox-plus-severity pattern. Twenty existing questions have mapped PRO evidence. Ten additional questions are labeled as proposed additions. Six existing questions have no usable cancer-context mapping yet. Diarrhea and loose stools await the poop-app connection. These states appear in the form and the alignment review.
 
-## Draft conversion rules
+## Answers
 
-All questions refer to the past 7 days. There are no preselected scores.
+- Checked with no severity: present.
+- Checked with severity 1–5: present. The number is retained; even 1 means present.
+- Severity 0: relieved, so the symptom does not contribute to matching.
+- Unchecked: unknown. It is not treated as evidence of absence.
 
-| Question | Answers that add a symptom | Matching symptom |
-|---|---|---|
-| Energy compared with usual | 1 Much lower, 2 Lower | Low energy / lethargy |
-| Anxiety | 2 Mildly anxious through 5 Extremely anxious | Anxiety |
-| Appetite compared with usual | 1 Not eating, 2 Eating less | Appetite loss |
-| Ease of movement | 1 Unable through 4 Slight difficulty | Limited mobility |
-| Observed signs | Checked | The named symptom |
+The prototype follows the intake's 1–5 presence semantics and the daily check-in's 0 = relieved semantics. Historical cases receive no invented severity, so severity differences are not scored. Current symptoms are compared with historical reports without asserting the same observation window or cause.
 
-These are prototype choices for review, not validated clinical cutoffs. Ratings keep their question-specific meaning. A high energy rating does not imply anxiety; limited mobility does not imply limping or pain.
+Broader platform answers preserve their scope: pain/discomfort count once under Pain or discomfort; limping/stiffness count once under Limping or stiffness; urinary/fecal incontinence count once under Incontinence. A broad answer does not assert both narrower signs. Limited mobility, foot chewing, anal leakage and nausea without treatment attribution remain separate rather than being forced into incompatible questions.
 
-An unanswered scale or unchecked sign is **unknown**. An answered scale outside its symptom range is **not flagged**. The current matcher uses positive symptoms only because missing historical symptoms are not evidence of absence. Historical records receive no invented 1–5 score.
+## Matching
 
-The platform’s existing checkbox-plus-severity form has different semantics: a checked symptom with severity 1 is still present. Do not reinterpret that legacy value using this questionnaire’s thresholds.
+Any descriptor or positive symptom can start matching. Empty profiles ask for information. A supplied diagnosis remains a condition filter; subtype records can match a broader diagnosis where the ontology has that relationship. Suspected diagnoses require the include-suspected toggle for condition-based queries. Without a diagnosis, comparisons can span different reported conditions, which are shown on each case.
 
-## Integration boundary
+Each matching diagnosis adds 4 points. Each distinct symptom group adds 2 points independently. Breed, sex, age at diagnosis and weight add up to 1 point each. Age similarity is `max(0, 1 - abs(query - recorded) / 5)`; weight similarity is `max(0, 1 - abs(query - recorded) / (query * 0.5))`. These are adjustable prototype settings, not validated biological cutoffs.
 
-`questionnaire.json` is the shared definition of the questions, labels, conversion rules and review options. `questionnaire.js` renders the form and derives symptoms. `matcher.js` compares those symptoms and profile fields against `matching-cases.json`; `matching-results.js` renders the cases and reported therapies. The local Python prototype also derives symptoms on the server using that same question definition before matching. Browser and Python matching behavior are checked for parity.
+Cases rank by **supported points / supplied points**. Missing historical information contributes no support and remains labeled unknown. Known differences are shown. There is no 50% coverage gate, 60% agreement gate, or requirement for a second descriptor. The best 20 case groups sharing some support are shown. Adding symptoms can lift cases sharing those symptoms without eliminating previous candidates merely because other symptoms were not recorded. Percentage support can fall as unanswered historical details are requested; it is not confidence or a match probability.
 
-The public case snapshot contains 671 eligible historical records in 666 provisional case groups. It exports only normalized matching features, eligible reported therapies, grouping IDs and source-cell references. Names, contact fields and raw source narratives are omitted. The browser downloads that snapshot once and computes matches locally; entered answers are not sent to a server. Source references identify historical evidence, not a live patient record.
+No learned symptom weights, severity comparisons or symptom-combination bonuses are implemented. Age at diagnosis is distinct from current age inferred from birth date. Non-cancer condition questions have not been mapped into this cancer-focused collection.
 
-Changing an answer clears previous matches until matching is run again. Fewer than three comparable groups withholds the aggregate therapy counts; available individual cases still show their recorded therapies. Missing/unmapped therapy data remains unknown. Reported use does not establish effectiveness.
+## Therapy outputs
 
-Keep the original answers, questionnaire version, observation window and submission time when integrating. Store derived symptoms with their question provenance so a later rule change can be reviewed. The downloadable JSON demonstrates the payload; it does not write to the database.
+A displayed therapy or category needs **at least 10 provisional case groups across the entire dataset** with eligible reported use, and at least one eligible report in the selected matching cases. Nine overall reports does not pass; ten does. There is no minimum input-group count and no minimum matched-cohort size beyond one.
 
-Stool consistency will come from the BLU Dog poop-app data after the database connection and field mapping are defined. For now its status is `not_connected`, its derived symptom list is empty, and diarrhea/loose-stool checkboxes are excluded. Scooting and anal leakage remain direct owner observations; they are not inferred from a stool image.
+The results show matching counts and whole-dataset counts separately. Global support is not support for effectiveness or for use in the same diagnosis. Categories overlap, and a broad category can meet the minimum while its individual therapies do not; the UI explains that case. Specific therapies below the minimum are omitted from case cards and summaries, while their source evidence remains in Source breakdown.
 
-The public page now runs form → conversion → matching → reported therapies entirely in the browser. A future platform integration can instead call the local prototype's `POST /api/match` shape:
+Repeated source records count once per provisional case group. Declined, hypothetical and ambiguous-use reports do not count. Only records independently matching the query contribute therapies to matching counts. Overall counts include eligible reports across the full dataset. Treatment mapping remains partial.
+
+## Integration
+
+`questionnaire.json` owns the version, labels, question coverage and answer meaning. `questionnaire.js` renders and converts answers; `matcher.js` scores the public snapshot; `matching-results.js` displays cases and counts. Answers update results automatically. The local Python endpoint implements the same conversion and matching behavior.
+
+The public snapshot contains 671 eligible source records in 666 provisional groups, with names, contact fields and raw narratives omitted. The public page computes locally. The optional download retains profile, original answers, translation decisions, questionnaire version and submission time.
+
+Example request to the local prototype's `POST /api/match`:
 
 ```json
 {
-  "diagnosis": "cancer.lymphoma",
-  "age_diagnosis": 8,
-  "sex": "sex.male",
+  "breed": "breed.labrador_retriever",
   "questionnaire": {
-    "version": "dog-check-in-v1-draft",
+    "version": "dog-check-in-v2-platform-aligned",
     "answers": {
-      "scales": {
-        "energy": 2,
-        "anxiety": 1,
-        "appetite": 3,
-        "mobility": 5
-      },
-      "checked": ["sign.enlarged_lymph_nodes"]
+      "checked": ["sign.pain_or_discomfort", "sign.low_energy"],
+      "severities": {
+        "sign.pain_or_discomfort": 1,
+        "sign.low_energy": 3
+      }
     }
   }
 }
 ```
 
-This produces low energy and enlarged lymph nodes for matching. Raw ratings remain available in the response. When a questionnaire is supplied, the server derives its symptoms and ignores any separately supplied symptom list.
+Both symptoms contribute. When a questionnaire is supplied, the server derives symptoms from its versioned answers and ignores a separately supplied symptom list. The old four-scale v1 payload is rejected rather than silently reinterpreted.
