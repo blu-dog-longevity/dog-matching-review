@@ -1,0 +1,1142 @@
+{
+  "version": "dog-check-in-v1-draft",
+  "timeframe": "past_7_days",
+  "scales": [
+    {
+      "id": "energy",
+      "label": "How is your dog’s energy compared with usual?",
+      "choices": [
+        "Much lower",
+        "Lower",
+        "Usual",
+        "Higher",
+        "Much higher"
+      ],
+      "symptom_id": "sign.low_energy",
+      "symptom_label": "Low energy / lethargy",
+      "present_values": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "anxiety",
+      "label": "How anxious or unsettled has your dog seemed?",
+      "choices": [
+        "Calm",
+        "Mildly anxious",
+        "Moderately anxious",
+        "Very anxious",
+        "Extremely anxious"
+      ],
+      "symptom_id": "sign.anxiety",
+      "symptom_label": "Anxiety",
+      "present_values": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "appetite",
+      "label": "How is your dog’s appetite compared with usual?",
+      "choices": [
+        "Not eating",
+        "Eating less",
+        "Usual",
+        "Eating more",
+        "Eating much more"
+      ],
+      "symptom_id": "sign.appetite_loss",
+      "symptom_label": "Appetite loss",
+      "present_values": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "mobility",
+      "label": "How easily has your dog been getting around?",
+      "choices": [
+        "Unable",
+        "Great difficulty",
+        "Some difficulty",
+        "Slight difficulty",
+        "Normally"
+      ],
+      "symptom_id": "sign.mobility_limited",
+      "symptom_label": "Limited mobility",
+      "present_values": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "checkboxes": [
+    {
+      "id": "sign.anal_leakage",
+      "label": "Leakage from the anal area",
+      "symptom_id": "sign.anal_leakage",
+      "symptom_label": "Anal leakage"
+    },
+    {
+      "id": "sign.cough",
+      "label": "Cough",
+      "symptom_id": "sign.cough",
+      "symptom_label": "Cough"
+    },
+    {
+      "id": "sign.difficulty_swallowing",
+      "label": "Difficulty swallowing",
+      "symptom_id": "sign.difficulty_swallowing",
+      "symptom_label": "Difficulty swallowing"
+    },
+    {
+      "id": "sign.discomfort",
+      "label": "Discomfort",
+      "symptom_id": "sign.discomfort",
+      "symptom_label": "Discomfort"
+    },
+    {
+      "id": "sign.enlarged_lymph_nodes",
+      "label": "Swollen lymph nodes, already noticed or reported by your vet",
+      "symptom_id": "sign.enlarged_lymph_nodes",
+      "symptom_label": "Enlarged lymph nodes"
+    },
+    {
+      "id": "sign.foot_chewing",
+      "label": "Foot chewing",
+      "symptom_id": "sign.foot_chewing",
+      "symptom_label": "Foot chewing"
+    },
+    {
+      "id": "sign.liver_values_increasing",
+      "label": "Your vet reported rising liver lab values",
+      "symptom_id": "sign.liver_values_increasing",
+      "symptom_label": "Increasing liver laboratory values; analyte unspecified"
+    },
+    {
+      "id": "sign.inflammation",
+      "label": "Your vet reported inflammation",
+      "symptom_id": "sign.inflammation",
+      "symptom_label": "Inflammation; unspecified"
+    },
+    {
+      "id": "sign.limping",
+      "label": "Limping",
+      "symptom_id": "sign.limping",
+      "symptom_label": "Limping"
+    },
+    {
+      "id": "sign.pain",
+      "label": "Pain",
+      "symptom_id": "sign.pain",
+      "symptom_label": "Pain"
+    },
+    {
+      "id": "sign.scooting",
+      "label": "Scooting or dragging their bottom",
+      "symptom_id": "sign.scooting",
+      "symptom_label": "Scooting"
+    },
+    {
+      "id": "sign.seizures",
+      "label": "Seizures",
+      "symptom_id": "sign.seizures",
+      "symptom_label": "Seizures"
+    },
+    {
+      "id": "sign.unwell",
+      "label": "Generally seeming unwell",
+      "symptom_id": "sign.unwell",
+      "symptom_label": "Unwell; unspecified"
+    },
+    {
+      "id": "sign.urinary_incontinence",
+      "label": "Urine leaking or accidents",
+      "symptom_id": "sign.urinary_incontinence",
+      "symptom_label": "Urinary incontinence"
+    },
+    {
+      "id": "sign.vomiting",
+      "label": "Vomiting",
+      "symptom_id": "sign.vomiting",
+      "symptom_label": "Vomiting"
+    },
+    {
+      "id": "sign.weight_loss",
+      "label": "Weight loss",
+      "symptom_id": "sign.weight_loss",
+      "symptom_label": "Weight loss"
+    }
+  ],
+  "deferred": {
+    "source": "poop_app",
+    "status": "not_connected",
+    "symptom_ids": [
+      "sign.diarrhea",
+      "sign.loose_stools"
+    ]
+  },
+  "profile_options": {
+    "diagnosis": [
+      {
+        "id": "diagnosis.source_abdominal",
+        "label": "Abdominal (source label)"
+      },
+      {
+        "id": "diagnosis.source_acute_leukemia",
+        "label": "Acute leukemia (source label)"
+      },
+      {
+        "id": "cancer.acute_lymphoblastic_leukemia",
+        "label": "Acute lymphoblastic leukemia"
+      },
+      {
+        "id": "cancer.adenocarcinoma",
+        "label": "Adenocarcinoma"
+      },
+      {
+        "id": "diagnosis.source_anal_gland_adenocarcinoma",
+        "label": "Anal gland adenocarcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_anal_gland_carcinoma",
+        "label": "Anal gland carcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_anal_gland_tumor",
+        "label": "Anal Gland Tumor (source label)"
+      },
+      {
+        "id": "diagnosis.source_anal_sac_carcinoma",
+        "label": "Anal sac carcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_apocrine_gland_adenocarcinoma",
+        "label": "Apocrine gland adenocarcinoma (source label)"
+      },
+      {
+        "id": "cancer.b_cell_lymphoma",
+        "label": "B-cell lymphoma"
+      },
+      {
+        "id": "diagnosis.source_basal_cell_carcinoma",
+        "label": "Basal cell carcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_basosquamous_carcinoma",
+        "label": "Basosquamous carcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_bladder",
+        "label": "Bladder (source label)"
+      },
+      {
+        "id": "diagnosis.source_breast",
+        "label": "Breast (source label)"
+      },
+      {
+        "id": "cancer.adrenal_unspecified",
+        "label": "Cancer involving adrenal gland; histology unspecified"
+      },
+      {
+        "id": "cancer.anal_unspecified",
+        "label": "Cancer involving anal region; histology unspecified"
+      },
+      {
+        "id": "cancer.bone_unspecified",
+        "label": "Cancer involving bone; histology unspecified"
+      },
+      {
+        "id": "cancer.brain_unspecified",
+        "label": "Cancer involving brain; histology unspecified"
+      },
+      {
+        "id": "cancer.intestinal_unspecified",
+        "label": "Cancer involving intestine; histology unspecified"
+      },
+      {
+        "id": "cancer.liver_unspecified",
+        "label": "Cancer involving liver; histology unspecified"
+      },
+      {
+        "id": "cancer.lung_unspecified",
+        "label": "Cancer involving lung; histology unspecified"
+      },
+      {
+        "id": "cancer.stomach_unspecified",
+        "label": "Cancer involving stomach; histology unspecified"
+      },
+      {
+        "id": "diagnosis.source_carotid_body_tumor",
+        "label": "Carotid body tumor (source label)"
+      },
+      {
+        "id": "diagnosis.source_chondrosarcoma",
+        "label": "Chondrosarcoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_colon",
+        "label": "Colon (source label)"
+      },
+      {
+        "id": "diagnosis.source_colorectal",
+        "label": "Colorectal (source label)"
+      },
+      {
+        "id": "diagnosis.source_cutaneous_plasmacytosis",
+        "label": "Cutaneous plasmacytosis (source label)"
+      },
+      {
+        "id": "cancer.cutaneous_t_cell_lymphoma",
+        "label": "Cutaneous T-cell lymphoma"
+      },
+      {
+        "id": "diagnosis.source_eye",
+        "label": "Eye (source label)"
+      },
+      {
+        "id": "diagnosis.source_fatty_tumor",
+        "label": "Fatty tumor (source label)"
+      },
+      {
+        "id": "diagnosis.source_fatty_tumors",
+        "label": "Fatty tumors (source label)"
+      },
+      {
+        "id": "diagnosis.source_fibrosarcoma",
+        "label": "Fibrosarcoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_gastrointestinal_stromal_tumor",
+        "label": "Gastrointestinal Stromal Tumor (source label)"
+      },
+      {
+        "id": "cancer.glioma",
+        "label": "Glioma"
+      },
+      {
+        "id": "diagnosis.source_gum",
+        "label": "Gum (source label)"
+      },
+      {
+        "id": "cancer.hemangiosarcoma",
+        "label": "Hemangiosarcoma"
+      },
+      {
+        "id": "diagnosis.source_hepatocellular_carcinoma",
+        "label": "Hepatocellular carcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_histiocytic_sarcoma",
+        "label": "Histiocytic sarcoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_intestinal_lymphoma",
+        "label": "Intestinal lymphoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_intramuscular_hemangiosarcoma",
+        "label": "Intramuscular hemangiosarcoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_large_b_cell_lymphoma",
+        "label": "Large B-Cell Lymphoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_large_cell_lymphoma",
+        "label": "Large cell lymphoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_large_gastric_histiocytic_sarcoma",
+        "label": "Large gastric histiocytic sarcoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_leiomyosarcoma",
+        "label": "Leiomyosarcoma (source label)"
+      },
+      {
+        "id": "cancer.leukemia",
+        "label": "Leukemia"
+      },
+      {
+        "id": "diagnosis.source_lipoma",
+        "label": "Lipoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_lipomas",
+        "label": "Lipomas (source label)"
+      },
+      {
+        "id": "diagnosis.source_lymphangiosarcoma",
+        "label": "Lymphangiosarcoma (source label)"
+      },
+      {
+        "id": "cancer.lymphatic_leukemia",
+        "label": "Lymphatic leukemia; source wording"
+      },
+      {
+        "id": "diagnosis.source_lymphoblastic_lymphoma",
+        "label": "Lymphoblastic lymphoma (source label)"
+      },
+      {
+        "id": "cancer.lymphoma",
+        "label": "Lymphoma"
+      },
+      {
+        "id": "diagnosis.source_malignant_melanoma",
+        "label": "Malignant melanoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_mammary",
+        "label": "Mammary (source label)"
+      },
+      {
+        "id": "cancer.mast_cell_tumor",
+        "label": "Mast cell tumor"
+      },
+      {
+        "id": "diagnosis.source_medium_sarcoma",
+        "label": "Medium sarcoma (source label)"
+      },
+      {
+        "id": "cancer.melanoma",
+        "label": "Melanoma"
+      },
+      {
+        "id": "diagnosis.source_mesothelioma",
+        "label": "Mesothelioma (source label)"
+      },
+      {
+        "id": "diagnosis.source_multilobular_tumor_of_bone",
+        "label": "Multilobular Tumor of Bone (source label)"
+      },
+      {
+        "id": "diagnosis.source_myelodysplasia_syndrome",
+        "label": "Myelodysplasia Syndrome (source label)"
+      },
+      {
+        "id": "diagnosis.source_nasal",
+        "label": "Nasal (source label)"
+      },
+      {
+        "id": "diagnosis.source_nasal_adenocarcinoma",
+        "label": "Nasal adenocarcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_nasal_sarcoma",
+        "label": "Nasal sarcoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_nicitans_gland_adenocarcinoma",
+        "label": "Nicitans Gland Adenocarcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_oral",
+        "label": "Oral (source label)"
+      },
+      {
+        "id": "diagnosis.source_oral_melanoma",
+        "label": "Oral Melanoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_oral_melanoma_spindle_cell",
+        "label": "Oral melanoma spindle cell (source label)"
+      },
+      {
+        "id": "diagnosis.source_osteoma",
+        "label": "Osteoma (source label)"
+      },
+      {
+        "id": "cancer.osteosarcoma",
+        "label": "Osteosarcoma"
+      },
+      {
+        "id": "diagnosis.source_pancreatic",
+        "label": "Pancreatic (source label)"
+      },
+      {
+        "id": "diagnosis.source_pancreatic_adenocarcinoma",
+        "label": "Pancreatic adenocarcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_peripheral_nerve_sheath_tumor",
+        "label": "Peripheral nerve sheath tumor (source label)"
+      },
+      {
+        "id": "diagnosis.source_plasmacytoma",
+        "label": "Plasmacytoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_primary_mediastinal_t_cell_lymphoma",
+        "label": "Primary Mediastinal T-Cell Lymphoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_prostate",
+        "label": "Prostate (source label)"
+      },
+      {
+        "id": "diagnosis.source_rectal",
+        "label": "Rectal (source label)"
+      },
+      {
+        "id": "diagnosis.source_renal_cell_carcinoma",
+        "label": "Renal cell carcinoma (source label)"
+      },
+      {
+        "id": "cancer.sarcoma_unspecified",
+        "label": "Sarcoma; subtype unspecified"
+      },
+      {
+        "id": "diagnosis.source_skin",
+        "label": "Skin (source label)"
+      },
+      {
+        "id": "cancer.soft_tissue_sarcoma",
+        "label": "Soft tissue sarcoma"
+      },
+      {
+        "id": "diagnosis.source_spindle_cell_carcinoma",
+        "label": "Spindle cell carcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_spindle_cell_sarcoma",
+        "label": "Spindle cell sarcoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_spine",
+        "label": "Spine (source label)"
+      },
+      {
+        "id": "diagnosis.source_spleen",
+        "label": "Spleen (source label)"
+      },
+      {
+        "id": "diagnosis.source_squamous_cell_carcinoma",
+        "label": "Squamous cell carcinoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_subcutaneous_epithelial_lymphoma",
+        "label": "Subcutaneous epithelial lymphoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_t_cell_lymphoma",
+        "label": "T-cell Lymphoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_t_zone_lymphoma",
+        "label": "T-zone lymphoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_testicular",
+        "label": "Testicular (source label)"
+      },
+      {
+        "id": "diagnosis.source_throat",
+        "label": "Throat (source label)"
+      },
+      {
+        "id": "diagnosis.source_thymoma",
+        "label": "Thymoma (source label)"
+      },
+      {
+        "id": "diagnosis.source_thyroid",
+        "label": "Thyroid (source label)"
+      },
+      {
+        "id": "diagnosis.source_thyroid_carcinoma",
+        "label": "Thyroid carcinoma (source label)"
+      },
+      {
+        "id": "cancer.transitional_cell_carcinoma",
+        "label": "Transitional cell carcinoma"
+      }
+    ],
+    "breed": [
+      {
+        "id": "breed.source_airedale_terrier",
+        "label": "Airedale Terrier"
+      },
+      {
+        "id": "breed.alaskan_malamute",
+        "label": "Alaskan Malamute"
+      },
+      {
+        "id": "breed.source_american_bulldog",
+        "label": "American bulldog"
+      },
+      {
+        "id": "breed.source_american_pitbull_terrier",
+        "label": "American Pitbull Terrier"
+      },
+      {
+        "id": "breed.source_american_staffordshire_terrier",
+        "label": "American Staffordshire Terrier"
+      },
+      {
+        "id": "breed.source_aussie",
+        "label": "Aussie"
+      },
+      {
+        "id": "breed.aussie_mix",
+        "label": "Aussie mix; expansion unresolved"
+      },
+      {
+        "id": "breed.source_australian_shepherd",
+        "label": "Australian Shepherd"
+      },
+      {
+        "id": "breed.source_australian_shepherd_mix",
+        "label": "Australian Shepherd Mix"
+      },
+      {
+        "id": "breed.source_australian_shepherd_border_collie",
+        "label": "Australian Shepherd/Border Collie"
+      },
+      {
+        "id": "breed.source_basset_hound",
+        "label": "Basset Hound"
+      },
+      {
+        "id": "breed.source_basset_mix",
+        "label": "Basset mix"
+      },
+      {
+        "id": "breed.source_basset_pitbull",
+        "label": "Basset Pitbull"
+      },
+      {
+        "id": "breed.source_basset_beagle",
+        "label": "Basset/Beagle"
+      },
+      {
+        "id": "breed.source_beabull",
+        "label": "Beabull"
+      },
+      {
+        "id": "breed.beagle",
+        "label": "Beagle"
+      },
+      {
+        "id": "breed.source_beagle_mix",
+        "label": "Beagle Mix"
+      },
+      {
+        "id": "breed.source_beagle_golden_retriever",
+        "label": "Beagle/Golden Retriever"
+      },
+      {
+        "id": "breed.source_beauceron",
+        "label": "Beauceron"
+      },
+      {
+        "id": "breed.source_belgian_sheepdog",
+        "label": "Belgian Sheepdog"
+      },
+      {
+        "id": "breed.source_belgian_shepherd_labrador_retriever_mix",
+        "label": "Belgian Shepherd/Labrador Retriever mix"
+      },
+      {
+        "id": "breed.source_bernese_mountain_dog",
+        "label": "Bernese Mountain Dog"
+      },
+      {
+        "id": "breed.source_bichon",
+        "label": "Bichon"
+      },
+      {
+        "id": "breed.source_bichon_fris",
+        "label": "Bichon Frisé"
+      },
+      {
+        "id": "breed.source_boerboel_mastiff",
+        "label": "Boerboel Mastiff"
+      },
+      {
+        "id": "breed.border_collie",
+        "label": "Border Collie"
+      },
+      {
+        "id": "breed.source_boston_terrier_brittany_spaniel_mix_with_some_pug",
+        "label": "Boston Terrier/Brittany Spaniel Mix (with some pug)"
+      },
+      {
+        "id": "breed.source_bouvier_des_flandres",
+        "label": "Bouvier des Flandres"
+      },
+      {
+        "id": "breed.source_boxer",
+        "label": "Boxer"
+      },
+      {
+        "id": "breed.source_boxer_mix",
+        "label": "Boxer Mix"
+      },
+      {
+        "id": "breed.source_bull_mastiff",
+        "label": "Bull Mastiff"
+      },
+      {
+        "id": "breed.source_bull_terrier",
+        "label": "Bull Terrier"
+      },
+      {
+        "id": "breed.source_bulldog",
+        "label": "Bulldog"
+      },
+      {
+        "id": "breed.source_bully_mix",
+        "label": "Bully mix"
+      },
+      {
+        "id": "breed.source_chihuahua",
+        "label": "Chihuahua"
+      },
+      {
+        "id": "breed.source_chihuahua_mix",
+        "label": "Chihuahua mix"
+      },
+      {
+        "id": "breed.source_chow_shar_pei_cross",
+        "label": "Chow/Shar-pei cross"
+      },
+      {
+        "id": "breed.source_cocker_spaniel",
+        "label": "Cocker Spaniel"
+      },
+      {
+        "id": "breed.source_collie_mix",
+        "label": "Collie mix"
+      },
+      {
+        "id": "breed.source_corgi",
+        "label": "Corgi"
+      },
+      {
+        "id": "breed.source_corsican",
+        "label": "Corsican"
+      },
+      {
+        "id": "breed.coton_de_tulear",
+        "label": "Coton de Tulear"
+      },
+      {
+        "id": "breed.source_crossbreed",
+        "label": "Crossbreed"
+      },
+      {
+        "id": "breed.dachshund",
+        "label": "Dachshund"
+      },
+      {
+        "id": "breed.source_dalmatian",
+        "label": "Dalmatian"
+      },
+      {
+        "id": "breed.source_daschund_x_scottish_terrier",
+        "label": "Daschund x Scottish Terrier"
+      },
+      {
+        "id": "breed.source_doberman",
+        "label": "Doberman"
+      },
+      {
+        "id": "breed.source_double_dapple_dashshund",
+        "label": "Double Dapple Dashshund"
+      },
+      {
+        "id": "breed.source_doxie",
+        "label": "Doxie"
+      },
+      {
+        "id": "breed.source_english_bulldog",
+        "label": "English Bulldog"
+      },
+      {
+        "id": "breed.source_english_cocker_spaniel",
+        "label": "English Cocker Spaniel"
+      },
+      {
+        "id": "breed.source_english_pointer",
+        "label": "English Pointer"
+      },
+      {
+        "id": "breed.source_english_sheepdog",
+        "label": "English Sheepdog"
+      },
+      {
+        "id": "breed.source_flat_coated_retriever",
+        "label": "Flat-Coated Retriever"
+      },
+      {
+        "id": "breed.source_french_bulldog",
+        "label": "French bulldog"
+      },
+      {
+        "id": "breed.german_shepherd",
+        "label": "German Shepherd"
+      },
+      {
+        "id": "breed.source_german_shepherd_cross",
+        "label": "German Shepherd cross"
+      },
+      {
+        "id": "breed.source_german_shorthaired_pointer",
+        "label": "German Shorthaired Pointer"
+      },
+      {
+        "id": "breed.source_glen_of_imaal_terrier",
+        "label": "Glen of Imaal Terrier"
+      },
+      {
+        "id": "breed.source_goldador_golden_retriever_labrador",
+        "label": "Goldador (Golden Retriever + Labrador)"
+      },
+      {
+        "id": "breed.source_golden_doodle",
+        "label": "Golden Doodle"
+      },
+      {
+        "id": "breed.source_golden_lab",
+        "label": "Golden Lab"
+      },
+      {
+        "id": "breed.source_golden_retriever",
+        "label": "Golden Retriever"
+      },
+      {
+        "id": "breed.source_golden_retriever_english_pointer",
+        "label": "Golden Retriever/English Pointer"
+      },
+      {
+        "id": "breed.source_great_dane",
+        "label": "Great Dane"
+      },
+      {
+        "id": "breed.source_great_pyrenees",
+        "label": "Great Pyrenees"
+      },
+      {
+        "id": "breed.greyhound",
+        "label": "Greyhound"
+      },
+      {
+        "id": "breed.source_havanese_chihuahua",
+        "label": "Havanese/Chihuahua."
+      },
+      {
+        "id": "breed.source_hawaiian_poi_dog",
+        "label": "Hawaiian Poi Dog"
+      },
+      {
+        "id": "breed.source_huskey",
+        "label": "Huskey"
+      },
+      {
+        "id": "breed.source_husky",
+        "label": "Husky"
+      },
+      {
+        "id": "breed.source_husky_mix",
+        "label": "Husky Mix"
+      },
+      {
+        "id": "breed.source_husky_retriever_mix",
+        "label": "Husky Retriever mix"
+      },
+      {
+        "id": "breed.source_husky_catahoula",
+        "label": "Husky/Catahoula"
+      },
+      {
+        "id": "breed.source_italian_greyhound",
+        "label": "Italian Greyhound"
+      },
+      {
+        "id": "breed.source_jack_russell_terrier",
+        "label": "Jack Russell Terrier"
+      },
+      {
+        "id": "breed.source_jack_russell_pitbull_mix",
+        "label": "Jack Russell/Pitbull mix"
+      },
+      {
+        "id": "breed.source_kelpie",
+        "label": "Kelpie"
+      },
+      {
+        "id": "breed.source_lab_dutch",
+        "label": "Lab Dutch"
+      },
+      {
+        "id": "breed.source_lab_pitbull",
+        "label": "Lab Pitbull"
+      },
+      {
+        "id": "breed.source_lab_pit_mix",
+        "label": "Lab/Pit mix"
+      },
+      {
+        "id": "breed.labrador_retriever",
+        "label": "Labrador Retriever"
+      },
+      {
+        "id": "breed.labrador_mix",
+        "label": "Labrador Retriever mix"
+      },
+      {
+        "id": "breed.source_lhasa_apso",
+        "label": "Lhasa Apso"
+      },
+      {
+        "id": "breed.source_maltese",
+        "label": "Maltese"
+      },
+      {
+        "id": "breed.maltese_shih_tzu_mix",
+        "label": "Maltese/Shih Tzu mix"
+      },
+      {
+        "id": "breed.source_mastiff",
+        "label": "Mastiff"
+      },
+      {
+        "id": "breed.source_mastiff_mix",
+        "label": "Mastiff mix"
+      },
+      {
+        "id": "breed.source_mini_schnauzer",
+        "label": "Mini Schnauzer"
+      },
+      {
+        "id": "breed.source_miniature_pinscher",
+        "label": "Miniature Pinscher"
+      },
+      {
+        "id": "breed.source_miniature_schnauzer",
+        "label": "Miniature Schnauzer"
+      },
+      {
+        "id": "breed.source_minpin",
+        "label": "Minpin"
+      },
+      {
+        "id": "breed.mixed_unspecified",
+        "label": "Mixed breed; ancestry unspecified"
+      },
+      {
+        "id": "breed.source_mixed_breed",
+        "label": "Mixed-breed"
+      },
+      {
+        "id": "breed.source_mutt_with_doberman_bulldog_and_husky_contributions",
+        "label": "Mutt (with Doberman, bulldog, and husky contributions)"
+      },
+      {
+        "id": "breed.source_newfie_mix",
+        "label": "Newfie mix"
+      },
+      {
+        "id": "breed.source_old_english_sheepdog",
+        "label": "Old English Sheepdog"
+      },
+      {
+        "id": "breed.source_papillon",
+        "label": "Papillon"
+      },
+      {
+        "id": "breed.source_part_lab",
+        "label": "Part Lab"
+      },
+      {
+        "id": "breed.source_pit_bull_mix",
+        "label": "Pit Bull mix"
+      },
+      {
+        "id": "breed.source_pit_lab_mix",
+        "label": "Pit/Lab Mix"
+      },
+      {
+        "id": "breed.source_pitbull_mix",
+        "label": "Pitbull mix"
+      },
+      {
+        "id": "breed.source_pitbull_shar_pei_mix",
+        "label": "Pitbull/Shar pei mix"
+      },
+      {
+        "id": "breed.pitbull_unspecified",
+        "label": "Pitbull; type unspecified"
+      },
+      {
+        "id": "breed.source_pom",
+        "label": "Pom"
+      },
+      {
+        "id": "breed.source_pomeranian",
+        "label": "Pomeranian"
+      },
+      {
+        "id": "breed.source_poodle",
+        "label": "Poodle"
+      },
+      {
+        "id": "breed.poodle_mix",
+        "label": "Poodle mix"
+      },
+      {
+        "id": "breed.source_pug",
+        "label": "Pug"
+      },
+      {
+        "id": "breed.pyrenees_unspecified",
+        "label": "Pyrenees; breed unresolved"
+      },
+      {
+        "id": "breed.source_rat_terrier",
+        "label": "Rat terrier"
+      },
+      {
+        "id": "breed.source_retriever",
+        "label": "Retriever"
+      },
+      {
+        "id": "breed.source_retriever_mix",
+        "label": "Retriever Mix"
+      },
+      {
+        "id": "breed.source_rhodesian_ridgeback",
+        "label": "Rhodesian Ridgeback"
+      },
+      {
+        "id": "breed.source_ridgeback",
+        "label": "Ridgeback"
+      },
+      {
+        "id": "breed.rottweiler",
+        "label": "Rottweiler"
+      },
+      {
+        "id": "breed.source_rottweiler_cross",
+        "label": "Rottweiler-cross"
+      },
+      {
+        "id": "breed.source_schipperke",
+        "label": "Schipperke"
+      },
+      {
+        "id": "breed.source_schnauzer",
+        "label": "Schnauzer"
+      },
+      {
+        "id": "breed.source_scottish_terrier",
+        "label": "Scottish Terrier"
+      },
+      {
+        "id": "breed.source_scotty",
+        "label": "Scotty"
+      },
+      {
+        "id": "breed.source_sheltie",
+        "label": "Sheltie"
+      },
+      {
+        "id": "breed.source_shepherd",
+        "label": "Shepherd"
+      },
+      {
+        "id": "breed.source_shepherd_boxer",
+        "label": "Shepherd Boxer"
+      },
+      {
+        "id": "breed.source_shepherd_mix",
+        "label": "Shepherd Mix"
+      },
+      {
+        "id": "breed.source_shiba_inu",
+        "label": "Shiba Inu"
+      },
+      {
+        "id": "breed.shih_tzu",
+        "label": "Shih Tzu"
+      },
+      {
+        "id": "breed.source_siberian_husky",
+        "label": "Siberian Husky"
+      },
+      {
+        "id": "breed.source_siberian_husky_wolf_mix",
+        "label": "Siberian Husky/Wolf mix"
+      },
+      {
+        "id": "breed.source_silky_terrier",
+        "label": "Silky Terrier"
+      },
+      {
+        "id": "breed.source_st_bernard",
+        "label": "St. Bernard"
+      },
+      {
+        "id": "breed.source_staffordshire",
+        "label": "Staffordshire"
+      },
+      {
+        "id": "breed.source_staffordshire_bullheaded",
+        "label": "Staffordshire Bullheaded"
+      },
+      {
+        "id": "breed.source_staffordshire_terrier",
+        "label": "Staffordshire Terrier"
+      },
+      {
+        "id": "breed.source_standard_poodle",
+        "label": "Standard Poodle"
+      },
+      {
+        "id": "breed.source_terrier",
+        "label": "Terrier"
+      },
+      {
+        "id": "breed.source_tibetan_terrier",
+        "label": "Tibetan Terrier"
+      },
+      {
+        "id": "breed.source_toy_australian_shepherd",
+        "label": "Toy Australian Shepherd"
+      },
+      {
+        "id": "breed.source_toy_fox_terrier",
+        "label": "Toy Fox Terrier"
+      },
+      {
+        "id": "breed.source_toy_terrier",
+        "label": "Toy Terrier"
+      },
+      {
+        "id": "breed.west_highland_white_terrier",
+        "label": "West Highland White Terrier"
+      },
+      {
+        "id": "breed.source_white_shepherd",
+        "label": "White Shepherd"
+      },
+      {
+        "id": "breed.source_wiener",
+        "label": "Wiener"
+      },
+      {
+        "id": "breed.source_yorkie",
+        "label": "Yorkie"
+      },
+      {
+        "id": "breed.source_yorkshire_terrier",
+        "label": "Yorkshire Terrier"
+      }
+    ]
+  }
+}

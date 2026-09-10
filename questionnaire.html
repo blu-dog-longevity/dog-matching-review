@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLU Dog · Dog questionnaire</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./questionnaire.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f7f2;color:#193c49;font:15px/1.5 system-ui,sans-serif}header{max-width:1200px;margin:auto;padding:28px 24px 20px}.topline{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:11px;font-weight:750;letter-spacing:.09em}.topline a{font-weight:400;letter-spacing:0;color:#156b88;font-size:13px}h1{font-size:30px;line-height:1.15;margin:17px 0 8px}header p{margin:0;color:#60747a;font-size:14px}main{max-width:1200px;margin:0 auto 40px;padding:0 24px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.85fr);gap:24px;align-items:start}form{background:white;border:1px solid #d7e1e2;border-radius:12px;padding:26px}form label{display:block;margin:15px 0 6px;font-size:13px;font-weight:650}input,select,button{font:inherit}input:not([type=checkbox]):not([type=radio]),select{display:block;width:100%;padding:10px;border:1px solid #b8cbd0;border-radius:7px;color:#193c49;background:white}button{border:0;border-radius:7px;background:#156b88;color:white;font-size:13px;padding:12px;cursor:pointer}button:disabled{opacity:.5;cursor:default}.secondary{background:#e8f1f3;color:#193c49}.form-buttons{margin-top:20px}.review-column{position:sticky;top:24px}.review-tools{padding:0 8px}.load-error{color:#953e34}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #b87f35;outline-offset:2px}@media(max-width:900px){main{grid-template-columns:1fr}.review-column{position:static}}@media(max-width:520px){header{padding:20px 16px}main{padding:0 16px}form{padding:20px}h1{font-size:27px}.topline{align-items:start}}
+</style>
+</head>
+<body>
+<header><div class="topline"><span>BLU DOG · QUESTIONNAIRE PROTOTYPE</span><a href="./index.html">View grouped source terms</a></div><h1>Tell us about your dog</h1><p>A mix of everyday ratings and signs you’ve noticed.</p></header>
+<main>
+<form id="query"><button id="example" type="button" class="secondary form-example" disabled>Load example dog</button><div id="dog-fields"><p>Loading questions…</p></div><div class="form-buttons"><button id="download" type="submit" disabled>Download this example</button></div></form>
+<aside class="review-column"><section id="translation" class="translation"><h2>Symptoms for matching</h2><p class="question-hint">Your answers will appear here.</p></section><div class="review-tools"><p>This page previews the questionnaire and its draft conversion rules. It does not run case matching or save answers to the platform.</p><p>Answers stay in this page unless you download them. The download includes the original ratings and the translated symptoms for the team to review.</p></div></aside>
+</main>
+<script type="module" src="./questionnaire-page.js"></script>
+</body>
+</html>
