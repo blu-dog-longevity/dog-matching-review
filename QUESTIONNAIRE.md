@@ -2,7 +2,7 @@
 
 [Open the prototype](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html) · [Question alignment and gaps](INPUT-ALIGNMENT.md)
 
-The form uses the existing BLU Dog symptom names and checkbox-plus-severity pattern. Twenty existing questions have mapped PRO evidence. Ten additional questions are labeled as proposed additions. Six existing questions have no usable cancer-context mapping yet. Diarrhea and loose stools await the poop-app connection. These states appear in the form and the alignment review.
+The form compares the dog's starting condition, using existing BLU Dog symptom names and the checkbox-plus-severity pattern. Twenty existing questions have reviewed starting-symptom evidence. Ten additional questions are labeled as proposed additions. Four existing questions have no reviewed starting mapping; nausea after treatment and fatigue after chemotherapy are reserved for future follow-ups. Laboratory findings are separate from symptom questions. Diarrhea and loose stools await the poop-app connection. [Input structure and review limits](INPUT-STRUCTURE.md).
 
 ## Answers
 
@@ -11,13 +11,15 @@ The form uses the existing BLU Dog symptom names and checkbox-plus-severity patt
 - Severity 0: relieved, so the symptom does not contribute to matching.
 - Unchecked: unknown. It is not treated as evidence of absence.
 
-The prototype follows the intake's 1–5 presence semantics and the daily check-in's 0 = relieved semantics. Historical cases receive no invented severity, so severity differences are not scored. Current symptoms are compared with historical reports without asserting the same observation window or cause.
+The prototype follows the intake's 1–5 presence semantics and the daily check-in's 0 = relieved semantics. Historical cases receive no invented severity, so severity differences are not scored. Only reviewed starting-symptom evidence contributes. Exact pretreatment dates are often unavailable; source context does not establish a verified common observation window or cause.
 
 Broader platform answers preserve their scope: pain/discomfort count once under Pain or discomfort; limping/stiffness count once under Limping or stiffness; urinary/fecal incontinence count once under Incontinence. A broad answer does not assert both narrower signs. Limited mobility, foot chewing, anal leakage and nausea without treatment attribution remain separate rather than being forced into incompatible questions.
 
 ## Matching
 
 Any descriptor or positive symptom can start matching. Empty profiles ask for information. A supplied diagnosis remains a condition filter; subtype records can match a broader diagnosis where the ontology has that relationship. Suspected diagnoses require the include-suspected toggle for condition-based queries. Without a diagnosis, comparisons can span different reported conditions, which are shown on each case.
+
+The form opens available types beneath Cancer and subtypes beneath the chosen type. The most specific selected value is the single diagnosis filter. Changing a parent clears its descendants; leaving a child blank keeps the broader filter. Initial symptoms remain available at every level, including when the diagnosis is unknown.
 
 Each matching diagnosis adds 4 points. Each distinct symptom group adds 2 points independently. Breed, sex, age at diagnosis and weight add up to 1 point each. Age similarity is `max(0, 1 - abs(query - recorded) / 5)`; weight similarity is `max(0, 1 - abs(query - recorded) / (query * 0.5))`. These are adjustable prototype settings, not validated biological cutoffs.
 
@@ -45,7 +47,7 @@ Example request to the local prototype's `POST /api/match`:
 {
   "breed": "breed.labrador_retriever",
   "questionnaire": {
-    "version": "dog-check-in-v2-platform-aligned",
+    "version": "dog-check-in-v3-initial-symptoms",
     "answers": {
       "checked": ["sign.pain_or_discomfort", "sign.low_energy"],
       "severities": {
@@ -57,4 +59,4 @@ Example request to the local prototype's `POST /api/match`:
 }
 ```
 
-Both symptoms contribute. When a questionnaire is supplied, the server derives symptoms from its versioned answers and ignores a separately supplied symptom list. The old four-scale v1 payload is rejected rather than silently reinterpreted.
+Both symptoms contribute. When a questionnaire is supplied, the server derives symptoms from its versioned answers and ignores a separately supplied symptom list. The observation window is `initial_symptoms`. Earlier v1 and v2 payloads are rejected rather than silently reinterpreted.

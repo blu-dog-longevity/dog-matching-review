@@ -23,6 +23,8 @@ export function deriveSymptoms(answers, schema) {
 
 export function renderDogForm(root, schema, options = schema.profile_options) {
   const choices = entries => entries.map(c => '<option value="'+esc(c.id)+'">'+esc(c.label)+'</option>').join('');
+  const diagnosisIds = new Set(options.diagnosis.map(c => c.id));
+  const roots = options.diagnosis.filter(c => !diagnosisIds.has(schema.diagnosis_parents[c.id]));
   const symptom = q => '<div class="symptom-item"><label class="symptom-check"><input type="checkbox" name="observed" value="'+q.id+'"><span>'+esc(q.label)+'</span></label>'+
     '<fieldset class="severity-row" data-severity="'+q.id+'" hidden><legend>Severity (optional)</legend><div class="severity-choices">'+
     schema.severity_choices.map((label,i) => '<label title="'+esc(label)+'"><input type="radio" name="severity-'+q.id+'" value="'+(i+1)+'" aria-label="'+esc(q.label)+' severity '+(i+1)+' — '+esc(label)+'"><span>'+(i+1)+'</span></label>').join('')+
@@ -32,16 +34,36 @@ export function renderDogForm(root, schema, options = schema.profile_options) {
     '<label for="breed">Breed</label><select id="breed"><option value="">Not sure / leave blank</option>'+choices(options.breed)+'</select>'+
     '<div class="profile-pair"><div><label for="weight">Weight</label><input id="weight" type="number" min="0.1" max="400" step="0.1" placeholder="Pounds"></div>'+
     '<div><label for="sex">Sex</label><select id="sex"><option value="">Leave blank</option><option value="sex.female">Female</option><option value="sex.male">Male</option></select></div></div>'+
-    '<label for="diagnosis">Cancer / reported diagnosis <span class="optional">(if known)</span></label><select id="diagnosis"><option value="">Not sure / leave blank</option>'+choices(options.diagnosis)+'</select>'+
+    '<label for="condition">Diagnosis <span class="optional">(if known)</span></label><select id="condition"><option value="">Not sure / leave blank</option>'+choices(roots)+'</select><div id="diagnosis-details"></div>'+
     '<label for="age">Age at diagnosis <span class="optional">(if known)</span></label><input id="age" type="number" min="0.1" max="50" step="0.1" placeholder="Years at diagnosis, not current age">'+
     '<label class="plain-check"><input id="suspected" type="checkbox">Include cases with suspected diagnoses</label></section>'+
-    '<section class="form-section"><h2>Symptoms you’ve noticed</h2><p class="question-hint">These use BLU Dog’s existing symptom names. Check anything present, then optionally rate its severity. Even a mild symptom counts.</p><div class="symptom-checks">'+
+    '<section class="form-section"><h2>Starting symptoms</h2><p class="question-hint">Symptoms the dog already had before treatment, even if the cause is unknown. Leave out treatment side effects and later changes. Severity is optional.</p><div class="symptom-checks">'+
     schema.checkboxes.filter(q => q.source === 'existing_platform').map(symptom).join('')+'</div></section>'+
     '<details class="form-section extra-symptoms"><summary>Additional signs from the PRO reports</summary><p class="question-hint">Proposed new questions: these are not in the existing BLU Dog intake. You can try them in this prototype.</p><div class="symptom-checks">'+
     schema.checkboxes.filter(q => q.source === 'proposed_question').map(symptom).join('')+'</div></details>'+
     '<section class="stool-pending"><h3>Stool information</h3><p>Diarrhea and loose-stool matching will use the BLU Dog poop app. That connection is not covered in this prototype yet.</p></section>'+
-    '<details class="coverage-notes"><summary>Existing questions not covered by this prototype</summary><p class="question-hint">No cancer-context PRO evidence is mapped to these questions yet, so they cannot refine matching:</p><ul>'+schema.uncovered.map(q => '<li>'+esc(q.label)+'</li>').join('')+'</ul><p class="question-hint">Treatment-related signs need their source context reviewed. Current age and non-cancer conditions are also not mapped. <a href="./INPUT-ALIGNMENT.md">Full question alignment</a></p></details>';
-  root.addEventListener('change', () => syncSeverity(root));
+    '<details class="coverage-notes"><summary>Questions not covered yet</summary><p class="question-hint">These existing questions have no reviewed starting-symptom mapping:</p><ul>'+schema.uncovered.map(q => '<li>'+esc(q.label)+'</li>').join('')+'</ul><p class="question-hint">Treatment reactions are reserved for later follow-ups. Lab findings are kept separately from symptom choices. <a href="./INPUT-ALIGNMENT.md">Full question alignment</a></p></details>';
+  root.addEventListener('change', event => {
+    if (event.target.id === 'condition' || event.target.matches('[data-diagnosis-level]')) {
+      const path = event.target.id === 'condition' ? [] : [...root.querySelectorAll('[data-diagnosis-level]')].slice(0, Number(event.target.dataset.diagnosisLevel)+1).map(select => select.value);
+      renderDiagnosisDetails(root, options.diagnosis, schema.diagnosis_parents, path);
+    }
+    syncSeverity(root);
+  });
+}
+
+function renderDiagnosisDetails(root, diagnoses, parents, path) {
+  let parent = root.querySelector('#condition').value, depth = 0, html = '';
+  while (parent) {
+    const children = diagnoses.filter(c => parents[c.id] === parent);
+    if (!children.length) break;
+    const selected = children.some(c => c.id === path[depth]) ? path[depth] : '';
+    const id = depth === 0 ? 'diagnosis' : 'diagnosis-subtype-'+depth;
+    html += '<label for="'+id+'">'+(depth === 0 ? 'Type' : 'Subtype')+' <span class="optional">(if known)</span></label><select id="'+id+'" data-diagnosis-level="'+depth+'"><option value="">Not specified / keep broader match</option>'+children.map(c => '<option value="'+esc(c.id)+'"'+(c.id === selected ? ' selected' : '')+'>'+esc(c.label)+'</option>').join('')+'</select>';
+    parent = selected;
+    depth++;
+  }
+  root.querySelector('#diagnosis-details').innerHTML = html;
 }
 
 function syncSeverity(root) {
@@ -62,7 +84,8 @@ export function readAnswers(root) {
 
 export function readProfile(root) {
   const value = id => root.querySelector('#'+id).value;
-  return {dog_name:value('dog-name').trim(), diagnosis:value('diagnosis'), breed:value('breed'),
+  const diagnosis = [value('condition'), ...[...root.querySelectorAll('[data-diagnosis-level]')].map(select => select.value)].filter(Boolean).at(-1) ?? '';
+  return {dog_name:value('dog-name').trim(), diagnosis, breed:value('breed'),
     age_diagnosis:value('age') ? Number(value('age')) : null,
     weight:value('weight') ? Number(value('weight')) : null, sex:value('sex'),
     include_suspected:root.querySelector('#suspected').checked};
@@ -78,8 +101,11 @@ export function renderTranslation(root, result) {
 
 export function loadExample(root) {
   root.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(input => input.checked = false);
-  const values = {'dog-name':'Example dog', diagnosis:'cancer.lymphoma', breed:'', age:'8', weight:'', sex:'sex.male'};
+  const values = {'dog-name':'Example dog', condition:'cancer.any', breed:'', age:'8', weight:'', sex:'sex.male'};
   for (const [id,value] of Object.entries(values)) root.querySelector('#'+id).value = value;
+  root.querySelector('#condition').dispatchEvent(new Event('change', {bubbles:true}));
+  root.querySelector('#diagnosis').value = 'cancer.lymphoma';
+  root.querySelector('#diagnosis').dispatchEvent(new Event('change', {bubbles:true}));
   for (const id of ['sign.low_energy','sign.enlarged_lymph_nodes']) {
     root.querySelector('input[name=observed][value="'+id+'"]').checked = true;
     root.querySelector('input[name="severity-'+id+'"][value="2"]').checked = true;

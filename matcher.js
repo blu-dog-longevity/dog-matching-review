@@ -63,7 +63,9 @@ function compare(query, record, data, labels) {
   for (const id of overlap) {
     known += WEIGHTS.symptoms;
     matched += WEIGHTS.symptoms;
-    reasons.push({field:'Symptom', status:'agreement', detail:labels[id] ?? id, source_cells:record.feature_sources.symptoms ?? []});
+    const byConcept = record.feature_sources.symptoms_by_concept;
+    const sourceCells = byConcept ? [...new Set(f.symptoms.filter(specific => symptomGroups([specific], data).includes(id)).flatMap(specific => byConcept[specific] ?? []))].sort(order) : record.feature_sources.symptoms ?? [];
+    reasons.push({field:'Symptom', status:'agreement', detail:labels[id] ?? id, source_cells:sourceCells});
   }
   const missing = symptoms.filter(id => !overlap.includes(id));
   if (missing.length) unknown.push('unmentioned symptoms: ' + missing.map(id => labels[id] ?? id).join(', '));

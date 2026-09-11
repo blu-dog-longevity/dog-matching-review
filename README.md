@@ -2,9 +2,9 @@
 
 [Open dog matching](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html) · [Open source breakdown](https://blu-dog-longevity.github.io/dog-matching-review/)
 
-Start with any dog descriptor or symptom. Results update automatically as information is added. A diagnosis is optional; when supplied, it restricts cases to that diagnosis. Each case shows matching reasons and its reported therapies.
+Start with any dog descriptor or starting symptom. Results update automatically as information is added. A diagnosis is optional: Cancer opens mapped types, then available subtypes. The most specific choice filters the cases. Treatment reactions and later changes stay outside this initial comparison. Each case shows matching reasons and its reported therapies.
 
-The form follows BLU Dog's symptom checkboxes with optional severity ratings: 1–5 means present, 0 means relieved. It includes 20 existing symptom questions and 10 proposed additions from the PRO reports. Six existing questions have no usable mapping yet; diarrhea and loose-stool inputs await the poop app. [Question alignment and gaps](INPUT-ALIGNMENT.md) · [Conversion and scoring rules](QUESTIONNAIRE.md).
+The form follows BLU Dog's symptom checkboxes with optional severity ratings: 1–5 means present, 0 means relieved. It includes 20 existing symptom questions and 10 proposed additions from the PRO reports. Four existing questions have no reviewed starting mapping; two are reserved for treatment follow-ups. Veterinary findings remain separate from symptoms. Diarrhea and loose-stool inputs await the poop app. [Input structure and review limits](INPUT-STRUCTURE.md) · [Question alignment and gaps](INPUT-ALIGNMENT.md) · [Conversion and scoring rules](QUESTIONNAIRE.md).
 
 Therapy outputs require at least 10 supporting case groups across the full dataset and at least one report among the matching cases. Counts show **matching cases** and **overall reports** separately. A rare input can still help find a case. One matching case does not establish broad support within that specific profile, and reported use does not establish effectiveness.
 

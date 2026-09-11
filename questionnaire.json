@@ -1,6 +1,6 @@
 {
-  "version": "dog-check-in-v2-platform-aligned",
-  "timeframe": "current_symptoms",
+  "version": "dog-check-in-v3-initial-symptoms",
+  "timeframe": "initial_symptoms",
   "scales": [],
   "checkboxes": [
     {
@@ -9,8 +9,8 @@
       "symptom_id": "sign.pain_or_discomfort",
       "symptom_label": "Pain or discomfort",
       "source": "existing_platform",
-      "case_groups": 48,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 50,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.limping_or_stiffness",
@@ -18,8 +18,8 @@
       "symptom_id": "sign.limping_or_stiffness",
       "symptom_label": "Limping or stiffness",
       "source": "existing_platform",
-      "case_groups": 16,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 17,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.low_energy",
@@ -27,8 +27,8 @@
       "symptom_id": "sign.low_energy",
       "symptom_label": "Low energy / lethargy",
       "source": "existing_platform",
-      "case_groups": 49,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 50,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.appetite_loss",
@@ -37,7 +37,7 @@
       "symptom_label": "Appetite loss",
       "source": "existing_platform",
       "case_groups": 58,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.weight_loss",
@@ -45,8 +45,8 @@
       "symptom_id": "sign.weight_loss",
       "symptom_label": "Weight loss",
       "source": "existing_platform",
-      "case_groups": 29,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 30,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.vomiting",
@@ -55,7 +55,7 @@
       "symptom_label": "Vomiting",
       "source": "existing_platform",
       "case_groups": 8,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.excessive_thirst",
@@ -64,7 +64,7 @@
       "symptom_label": "Excessive thirst",
       "source": "existing_platform",
       "case_groups": 5,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.cough",
@@ -73,7 +73,7 @@
       "symptom_label": "Coughing",
       "source": "existing_platform",
       "case_groups": 13,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.breathing_difficulty",
@@ -81,8 +81,8 @@
       "symptom_id": "sign.breathing_difficulty",
       "symptom_label": "Labored breathing",
       "source": "existing_platform",
-      "case_groups": 17,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 16,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.skin_irritation",
@@ -90,8 +90,8 @@
       "symptom_id": "sign.skin_irritation",
       "symptom_label": "Itching or skin irritation",
       "source": "existing_platform",
-      "case_groups": 8,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 7,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.mouth_pain",
@@ -100,7 +100,7 @@
       "symptom_label": "Bad breath / mouth pain",
       "source": "existing_platform",
       "case_groups": 1,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.night_restlessness",
@@ -109,7 +109,7 @@
       "symptom_label": "Restlessness at night",
       "source": "existing_platform",
       "case_groups": 1,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.anxiety",
@@ -118,7 +118,7 @@
       "symptom_label": "Anxiety",
       "source": "existing_platform",
       "case_groups": 5,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.incontinence",
@@ -126,8 +126,8 @@
       "symptom_id": "sign.incontinence",
       "symptom_label": "Incontinence",
       "source": "existing_platform",
-      "case_groups": 9,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 7,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.seizures",
@@ -136,7 +136,7 @@
       "symptom_label": "Seizures",
       "source": "existing_platform",
       "case_groups": 21,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.lump_swelling",
@@ -144,8 +144,8 @@
       "symptom_id": "sign.lump_swelling",
       "symptom_label": "Visible lump or swelling",
       "source": "existing_platform",
-      "case_groups": 20,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 28,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.bleeding_bruising",
@@ -153,8 +153,8 @@
       "symptom_id": "sign.bleeding_bruising",
       "symptom_label": "Bleeding or bruising",
       "source": "existing_platform",
-      "case_groups": 32,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 31,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.fever_infection",
@@ -162,8 +162,8 @@
       "symptom_id": "sign.fever_infection",
       "symptom_label": "Fever or infection episodes",
       "source": "existing_platform",
-      "case_groups": 7,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 8,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.enlarged_lymph_nodes",
@@ -171,8 +171,8 @@
       "symptom_id": "sign.enlarged_lymph_nodes",
       "symptom_label": "Swollen lymph nodes",
       "source": "existing_platform",
-      "case_groups": 30,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 32,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.difficulty_swallowing",
@@ -180,8 +180,8 @@
       "symptom_id": "sign.difficulty_swallowing",
       "symptom_label": "Difficulty swallowing",
       "source": "existing_platform",
-      "case_groups": 2,
-      "note": "Historical wording maps to this answer; historical severity is unknown."
+      "case_groups": 1,
+      "note": "Only reviewed starting-symptom evidence supports this answer; historical severity is unknown."
     },
     {
       "id": "sign.mobility_limited",
@@ -189,7 +189,7 @@
       "symptom_id": "sign.mobility_limited",
       "symptom_label": "Limited mobility",
       "source": "proposed_question",
-      "case_groups": 34,
+      "case_groups": 33,
       "note": "Limited mobility does not establish limping or stiffness; keep this separate."
     },
     {
@@ -218,15 +218,6 @@
       "source": "proposed_question",
       "case_groups": 7,
       "note": "Location unspecified; do not infer skin or joint disease."
-    },
-    {
-      "id": "sign.liver_values_increasing",
-      "label": "Rising liver lab values",
-      "symptom_id": "sign.liver_values_increasing",
-      "symptom_label": "Rising liver lab values",
-      "source": "proposed_question",
-      "case_groups": 1,
-      "note": "Reported by a vet; the analyte is unspecified."
     },
     {
       "id": "sign.scooting",
@@ -261,7 +252,7 @@
       "symptom_id": "sign.frequent_urination",
       "symptom_label": "Frequent urination",
       "source": "proposed_question",
-      "case_groups": 5,
+      "case_groups": 3,
       "note": "Frequency does not establish leakage or excessive thirst."
     },
     {
@@ -272,6 +263,15 @@
       "source": "proposed_question",
       "case_groups": 3,
       "note": "The source cancer-symptom column does not establish that nausea followed treatment."
+    },
+    {
+      "id": "sign.reduced_vision",
+      "label": "Reduced vision",
+      "symptom_id": "sign.reduced_vision",
+      "symptom_label": "Reduced vision",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Poor vision in the comorbidity field is an existing sign; it does not establish blindness or a cancer cause."
     }
   ],
   "severity_choices": [
@@ -285,35 +285,107 @@
     {
       "id": "sign.constipation",
       "label": "Constipation",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No reviewed starting-symptom evidence mapped to this question yet."
     },
     {
       "id": "sign.ear_discomfort",
       "label": "Ear discomfort",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No reviewed starting-symptom evidence mapped to this question yet."
     },
     {
       "id": "sign.confusion",
       "label": "Confusion / disorientation",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
-    },
-    {
-      "id": "sign.nausea_after_treatment",
-      "label": "Nausea after treatment",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No reviewed starting-symptom evidence mapped to this question yet."
     },
     {
       "id": "sign.mouth_sores",
       "label": "Mouth sores",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No reviewed starting-symptom evidence mapped to this question yet."
+    }
+  ],
+  "follow_up": [
+    {
+      "id": "sign.nausea_after_treatment",
+      "label": "Nausea after treatment",
+      "reason": "Reserved for a later check-in linked to the treatment; excluded from initial matching."
     },
     {
       "id": "sign.fatigue_after_chemo",
       "label": "Fatigue after chemo",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "Reserved for a later check-in linked to the treatment; excluded from initial matching."
     }
   ],
-  "platform_code_revision": "ebfcc636be77bda0c96547ff929529f3ea5752db",
+  "findings": [
+    {
+      "id": "sign.liver_values_increasing",
+      "label": "Rising liver lab values",
+      "reason": "Veterinary laboratory finding retained for source review; excluded from symptom matching."
+    }
+  ],
+  "platform_code_revision": "1e32dbd96458d06dd898545328dfaa983659c7b1",
+  "diagnosis_parents": {
+    "cancer.acute_lymphoblastic_leukemia": "cancer.leukemia",
+    "cancer.b_cell_lymphoma": "cancer.lymphoma",
+    "cancer.cutaneous_t_cell_lymphoma": "cancer.lymphoma",
+    "cancer.lymphatic_leukemia": "cancer.leukemia",
+    "cancer.stomach_unspecified": "cancer.any",
+    "cancer.leukemia": "cancer.any",
+    "cancer.anal_unspecified": "cancer.any",
+    "cancer.adrenal_unspecified": "cancer.any",
+    "cancer.hemangiosarcoma": "cancer.sarcoma_unspecified",
+    "cancer.lymphoma": "cancer.any",
+    "cancer.bone_unspecified": "cancer.any",
+    "cancer.brain_unspecified": "cancer.any",
+    "cancer.sarcoma_unspecified": "cancer.any",
+    "cancer.liver_unspecified": "cancer.any",
+    "cancer.lung_unspecified": "cancer.any",
+    "cancer.intestinal_unspecified": "cancer.any",
+    "cancer.osteosarcoma": "cancer.sarcoma_unspecified",
+    "cancer.adenocarcinoma": "cancer.carcinoma",
+    "cancer.glioma": "cancer.any",
+    "cancer.mast_cell_tumor": "cancer.any",
+    "cancer.melanoma": "cancer.any",
+    "cancer.soft_tissue_sarcoma": "cancer.sarcoma_unspecified",
+    "cancer.transitional_cell_carcinoma": "cancer.carcinoma",
+    "cancer.mammary_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_acute_leukemia": "cancer.leukemia",
+    "diagnosis.source_apocrine_gland_adenocarcinoma": "cancer.adenocarcinoma",
+    "diagnosis.source_t_cell_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_chondrosarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_fibrosarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_histiocytic_sarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_intestinal_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_large_b_cell_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_lymphangiosarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_lymphoblastic_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_medium_sarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_nasal_adenocarcinoma": "cancer.adenocarcinoma",
+    "diagnosis.source_nasal_sarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_oral_melanoma": "cancer.melanoma",
+    "diagnosis.source_primary_mediastinal_t_cell_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_squamous_cell_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_subcutaneous_epithelial_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_t_zone_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_hepatocellular_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_malignant_melanoma": "cancer.melanoma",
+    "diagnosis.source_thyroid_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_basal_cell_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_renal_cell_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_large_gastric_histiocytic_sarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_intramuscular_hemangiosarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_anal_gland_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_spindle_cell_sarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_oral_melanoma_spindle_cell": "cancer.melanoma",
+    "diagnosis.source_spindle_cell_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_anal_gland_adenocarcinoma": "cancer.adenocarcinoma",
+    "diagnosis.source_pancreatic_adenocarcinoma": "cancer.adenocarcinoma",
+    "diagnosis.source_nicitans_gland_adenocarcinoma": "cancer.adenocarcinoma",
+    "diagnosis.source_leiomyosarcoma": "cancer.sarcoma_unspecified",
+    "diagnosis.source_basosquamous_carcinoma": "cancer.carcinoma",
+    "diagnosis.source_large_cell_lymphoma": "cancer.lymphoma",
+    "diagnosis.source_anal_sac_carcinoma": "cancer.carcinoma",
+    "cancer.carcinoma": "cancer.any"
+  },
   "deferred": {
     "source": "poop_app",
     "status": "not_connected",
@@ -381,6 +453,10 @@
         "label": "Breast (source label)"
       },
       {
+        "id": "cancer.any",
+        "label": "Cancer"
+      },
+      {
         "id": "cancer.adrenal_unspecified",
         "label": "Cancer involving adrenal gland; histology unspecified"
       },
@@ -411,6 +487,10 @@
       {
         "id": "cancer.stomach_unspecified",
         "label": "Cancer involving stomach; histology unspecified"
+      },
+      {
+        "id": "cancer.carcinoma",
+        "label": "Carcinoma"
       },
       {
         "id": "diagnosis.source_carotid_body_tumor",
@@ -630,7 +710,7 @@
       },
       {
         "id": "cancer.sarcoma_unspecified",
-        "label": "Sarcoma; subtype unspecified"
+        "label": "Sarcoma"
       },
       {
         "id": "diagnosis.source_skin",
