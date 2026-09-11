@@ -13,22 +13,22 @@ Select a symptom, then optionally rate it 1–5. Every selected rating from 1 th
 | Weight loss | Yes | 30 | Available |
 | Vomiting | Yes | 15 | Available |
 | Diarrhea | Yes | 21 | Poop app: not connected |
-| Constipation | Yes | 0 | Not covered: no mapped evidence |
+| Constipation | Yes | 0 | Not covered: no usable symptom mapping |
 | Excessive thirst | Yes | 5 | Available |
 | Coughing | Yes | 13 | Available |
 | Labored breathing | Yes | 17 | Available |
 | Itching or skin irritation | Yes | 8 | Available |
-| Ear discomfort | Yes | 0 | Not covered: no mapped evidence |
+| Ear discomfort | Yes | 0 | Not covered: no usable symptom mapping |
 | Bad breath / mouth pain | Yes | 1 | Available |
 | Restlessness at night | Yes | 1 | Available |
 | Anxiety | Yes | 7 | Available |
-| Confusion / disorientation | Yes | 0 | Not covered: no mapped evidence |
+| Confusion / disorientation | Yes | 0 | Not covered: no usable symptom mapping |
 | Incontinence | Yes | 10 | Available |
 | Seizures | Yes | 23 | Available |
 | Visible lump or swelling | Yes | 20 | Available |
-| Nausea after treatment | Yes | 0 | Not covered: no mapped evidence |
-| Mouth sores | Yes | 0 | Not covered: no mapped evidence |
-| Fatigue after chemo | Yes | 0 | Not covered: no mapped evidence |
+| Nausea after treatment | Yes | 0 | Not covered: no usable symptom mapping |
+| Mouth sores | Yes | 0 | Not covered: no usable symptom mapping |
+| Fatigue after chemo | Yes | 0 | Not covered: no usable symptom mapping |
 | Bleeding or bruising | Yes | 32 | Available |
 | Fever or infection episodes | Yes | 7 | Available |
 | Swollen lymph nodes | Yes | 30 | Available |
@@ -37,7 +37,7 @@ Select a symptom, then optionally rate it 1–5. Every selected rating from 1 th
 | Anal leakage | No — proposed addition | 1 | Available |
 | Foot chewing | No — proposed addition | 2 | Available |
 | Inflammation | No — proposed addition | 7 | Available |
-| Rising liver lab values | No — proposed addition | 0 | Not covered: no mapped evidence |
+| Rising liver lab values | No — proposed addition | 0 | Finding: shown in Source breakdown |
 | Scooting | No — proposed addition | 2 | Available |
 | Generally unwell | No — proposed addition | 11 | Available |
 | Difficulty urinating | No — proposed addition | 3 | Available |
