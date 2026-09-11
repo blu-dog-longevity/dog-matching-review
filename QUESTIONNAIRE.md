@@ -2,7 +2,7 @@
 
 [Open the prototype](https://blu-dog-longevity.github.io/dog-matching-review/questionnaire.html) · [Question alignment and gaps](INPUT-ALIGNMENT.md)
 
-The form uses the existing BLU Dog symptom names and checkbox-plus-severity pattern. Twenty existing questions have mapped PRO evidence. Fifteen additional questions are labeled as proposed additions. Six existing questions have no usable mapping yet. Rising liver values are shown as a finding in Source breakdown instead of a symptom checkbox. Diarrhea and loose stools await the poop-app connection.
+The form uses the existing BLU Dog symptom names and checkbox-plus-severity pattern. Twenty existing questions have mapped PRO evidence. Ten additional questions are labeled as proposed additions. Six existing questions have no usable cancer-context mapping yet. Diarrhea and loose stools await the poop-app connection. These states appear in the form and the alignment review.
 
 ## Answers
 
@@ -19,8 +19,6 @@ Broader platform answers preserve their scope: pain/discomfort count once under 
 
 Any descriptor or positive symptom can start matching. Empty profiles ask for information. A supplied diagnosis remains a condition filter; subtype records can match a broader diagnosis where the ontology has that relationship. Suspected diagnoses require the include-suspected toggle for condition-based queries. Without a diagnosis, comparisons can span different reported conditions, which are shown on each case.
 
-Symptom evidence includes mapped observations from X, Y, Z, AA and narrative/measurement fields. The optional `symptom_context` selects any context, treatment-related reports (including cannabis), cannabis-related reports, or follow-up reports. It narrows symptom evidence; a case can still match another supplied descriptor. A source-column context is not a claim of causation or a known event date. Broad symptom groups still count once; the source view retains their specific observations. Findings are displayed separately and not scored as symptoms.
-
 Each matching diagnosis adds 4 points. Each distinct symptom group adds 2 points independently. Breed, sex, age at diagnosis and weight add up to 1 point each. Age similarity is `max(0, 1 - abs(query - recorded) / 5)`; weight similarity is `max(0, 1 - abs(query - recorded) / (query * 0.5))`. These are adjustable prototype settings, not validated biological cutoffs.
 
 Cases rank by **supported points / supplied points**. Missing historical information contributes no support and remains labeled unknown. Known differences are shown. There is no 50% coverage gate, 60% agreement gate, or requirement for a second descriptor. The best 20 case groups sharing some support are shown. Adding symptoms can lift cases sharing those symptoms without eliminating previous candidates merely because other symptoms were not recorded. Percentage support can fall as unanswered historical details are requested; it is not confidence or a match probability.
@@ -35,8 +33,6 @@ The results show matching counts and whole-dataset counts separately. Global sup
 
 Repeated source records count once per provisional case group. Declined, hypothetical and ambiguous-use reports do not count. Only records independently matching the query contribute therapies to matching counts. Overall counts include eligible reports across the full dataset. Treatment mapping remains partial.
 
-Selected relationships in 14 records link product variants, composition, route, dose, condition episodes and follow-up statements. Unknown links remain visible. Rows 32 and 38 each add one previously unmapped CBD oil use, bringing overall CBD support to 101 groups. Multiple products per dog do not multiply category support, and product-specific dose evidence does not inherit a broader therapy's support count. All other therapy and category support totals are preserved.
-
 ## Integration
 
 `questionnaire.json` owns the version, labels, question coverage and answer meaning. `questionnaire.js` renders and converts answers; `matcher.js` scores the public snapshot; `matching-results.js` displays cases and counts. Answers update results automatically. The local Python endpoint implements the same conversion and matching behavior.
@@ -49,7 +45,7 @@ Example request to the local prototype's `POST /api/match`:
 {
   "breed": "breed.labrador_retriever",
   "questionnaire": {
-    "version": "dog-check-in-v3-linked-reports",
+    "version": "dog-check-in-v2-platform-aligned",
     "answers": {
       "checked": ["sign.pain_or_discomfort", "sign.low_energy"],
       "severities": {

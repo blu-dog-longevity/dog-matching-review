@@ -35,12 +35,12 @@ export function renderDogForm(root, schema, options = schema.profile_options) {
     '<label for="diagnosis">Cancer / reported diagnosis <span class="optional">(if known)</span></label><select id="diagnosis"><option value="">Not sure / leave blank</option>'+choices(options.diagnosis)+'</select>'+
     '<label for="age">Age at diagnosis <span class="optional">(if known)</span></label><input id="age" type="number" min="0.1" max="50" step="0.1" placeholder="Years at diagnosis, not current age">'+
     '<label class="plain-check"><input id="suspected" type="checkbox">Include cases with suspected diagnoses</label></section>'+
-    '<section class="form-section"><h2>Symptoms you’ve noticed</h2><p class="question-hint">Check what is present. A cancer diagnosis is optional. Historical observations can come from symptom, treatment or follow-up reports.</p><label for="symptom-context">Compare with symptom reports from <span class="optional">(optional)</span></label><select id="symptom-context"><option value="any">Any reported context</option><option value="treatment">Treatment-related reports</option><option value="cannabis">Cannabis-related reports</option><option value="follow_up">Follow-up reports</option></select><p class="question-hint">This refines symptom evidence, not the diagnosis filter. Reported context does not establish cause.</p><div class="symptom-checks">'+
+    '<section class="form-section"><h2>Symptoms you’ve noticed</h2><p class="question-hint">These use BLU Dog’s existing symptom names. Check anything present, then optionally rate its severity. Even a mild symptom counts.</p><div class="symptom-checks">'+
     schema.checkboxes.filter(q => q.source === 'existing_platform').map(symptom).join('')+'</div></section>'+
     '<details class="form-section extra-symptoms"><summary>Additional signs from the PRO reports</summary><p class="question-hint">Proposed new questions: these are not in the existing BLU Dog intake. You can try them in this prototype.</p><div class="symptom-checks">'+
     schema.checkboxes.filter(q => q.source === 'proposed_question').map(symptom).join('')+'</div></details>'+
     '<section class="stool-pending"><h3>Stool information</h3><p>Diarrhea and loose-stool matching will use the BLU Dog poop app. That connection is not covered in this prototype yet.</p></section>'+
-    '<details class="coverage-notes"><summary>Questions and findings not used for symptom matching</summary><p class="question-hint">These have no usable symptom mapping yet, or belong to a different kind of observation:</p><ul>'+schema.uncovered.map(q => '<li>'+esc(q.label)+'</li>').join('')+'</ul><p class="question-hint">Laboratory findings, diagnosis episodes and linked treatment details can be explored in Source breakdown. Mapping remains partial. <a href="./INPUT-ALIGNMENT.md">Full question alignment</a></p></details>';
+    '<details class="coverage-notes"><summary>Existing questions not covered by this prototype</summary><p class="question-hint">No cancer-context PRO evidence is mapped to these questions yet, so they cannot refine matching:</p><ul>'+schema.uncovered.map(q => '<li>'+esc(q.label)+'</li>').join('')+'</ul><p class="question-hint">Treatment-related signs need their source context reviewed. Current age and non-cancer conditions are also not mapped. <a href="./INPUT-ALIGNMENT.md">Full question alignment</a></p></details>';
   root.addEventListener('change', () => syncSeverity(root));
 }
 
@@ -65,7 +65,6 @@ export function readProfile(root) {
   return {dog_name:value('dog-name').trim(), diagnosis:value('diagnosis'), breed:value('breed'),
     age_diagnosis:value('age') ? Number(value('age')) : null,
     weight:value('weight') ? Number(value('weight')) : null, sex:value('sex'),
-    symptom_context:value('symptom-context'),
     include_suspected:root.querySelector('#suspected').checked};
 }
 
@@ -79,7 +78,7 @@ export function renderTranslation(root, result) {
 
 export function loadExample(root) {
   root.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(input => input.checked = false);
-  const values = {'dog-name':'Example dog', diagnosis:'cancer.lymphoma', breed:'', age:'8', weight:'', sex:'sex.male', 'symptom-context':'any'};
+  const values = {'dog-name':'Example dog', diagnosis:'cancer.lymphoma', breed:'', age:'8', weight:'', sex:'sex.male'};
   for (const [id,value] of Object.entries(values)) root.querySelector('#'+id).value = value;
   for (const id of ['sign.low_energy','sign.enlarged_lymph_nodes']) {
     root.querySelector('input[name=observed][value="'+id+'"]').checked = true;
