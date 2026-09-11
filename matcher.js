@@ -57,13 +57,18 @@ function compare(query, record, data, labels) {
     reasons.push({field:key, status:similarity === 1 ? 'agreement' : similarity > 0 ? 'partial' : 'difference',
       detail, source_cells:record.feature_sources[key] ?? []});
   }
-  const symptoms = symptomGroups(query.symptoms ?? [], data), recordedSymptoms = symptomGroups(f.symptoms, data);
+  const context = query.symptom_context || 'any';
+  const observations = (record.structure?.observations ?? []).filter(o => o.kind === 'symptom' &&
+    (context === 'any' || o.context === context || context === 'treatment' && o.context === 'cannabis'));
+  const symptoms = symptomGroups(query.symptoms ?? [], data);
+  const recordedSymptoms = symptomGroups(context === 'any' ? f.symptoms : observations.map(o => o.id), data);
   const overlap = symptoms.filter(id => recordedSymptoms.includes(id));
   requested += WEIGHTS.symptoms * symptoms.length;
   for (const id of overlap) {
     known += WEIGHTS.symptoms;
     matched += WEIGHTS.symptoms;
-    reasons.push({field:'Symptom', status:'agreement', detail:labels[id] ?? id, source_cells:record.feature_sources.symptoms ?? []});
+    const cells = [...new Set(observations.filter(o => symptomGroups([o.id],data).includes(id)).flatMap(o => o.source_cells))].sort(order);
+    reasons.push({field:'Symptom', status:'agreement', detail:labels[id] ?? id, source_cells:cells.length ? cells : record.feature_sources.symptoms ?? []});
   }
   const missing = symptoms.filter(id => !overlap.includes(id));
   if (missing.length) unknown.push('unmentioned symptoms: ' + missing.map(id => labels[id] ?? id).join(', '));

@@ -1,5 +1,5 @@
 {
-  "version": "dog-check-in-v2-platform-aligned",
+  "version": "dog-check-in-v3-linked-reports",
   "timeframe": "current_symptoms",
   "scales": [],
   "checkboxes": [
@@ -9,7 +9,7 @@
       "symptom_id": "sign.pain_or_discomfort",
       "symptom_label": "Pain or discomfort",
       "source": "existing_platform",
-      "case_groups": 48,
+      "case_groups": 53,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -27,7 +27,7 @@
       "symptom_id": "sign.low_energy",
       "symptom_label": "Low energy / lethargy",
       "source": "existing_platform",
-      "case_groups": 49,
+      "case_groups": 55,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -36,7 +36,7 @@
       "symptom_id": "sign.appetite_loss",
       "symptom_label": "Appetite loss",
       "source": "existing_platform",
-      "case_groups": 58,
+      "case_groups": 65,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -45,7 +45,7 @@
       "symptom_id": "sign.weight_loss",
       "symptom_label": "Weight loss",
       "source": "existing_platform",
-      "case_groups": 29,
+      "case_groups": 30,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -54,7 +54,7 @@
       "symptom_id": "sign.vomiting",
       "symptom_label": "Vomiting",
       "source": "existing_platform",
-      "case_groups": 8,
+      "case_groups": 15,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -117,7 +117,7 @@
       "symptom_id": "sign.anxiety",
       "symptom_label": "Anxiety",
       "source": "existing_platform",
-      "case_groups": 5,
+      "case_groups": 7,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -126,7 +126,7 @@
       "symptom_id": "sign.incontinence",
       "symptom_label": "Incontinence",
       "source": "existing_platform",
-      "case_groups": 9,
+      "case_groups": 10,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -135,7 +135,7 @@
       "symptom_id": "sign.seizures",
       "symptom_label": "Seizures",
       "source": "existing_platform",
-      "case_groups": 21,
+      "case_groups": 23,
       "note": "Historical wording maps to this answer; historical severity is unknown."
     },
     {
@@ -189,7 +189,7 @@
       "symptom_id": "sign.mobility_limited",
       "symptom_label": "Limited mobility",
       "source": "proposed_question",
-      "case_groups": 34,
+      "case_groups": 36,
       "note": "Limited mobility does not establish limping or stiffness; keep this separate."
     },
     {
@@ -218,15 +218,6 @@
       "source": "proposed_question",
       "case_groups": 7,
       "note": "Location unspecified; do not infer skin or joint disease."
-    },
-    {
-      "id": "sign.liver_values_increasing",
-      "label": "Rising liver lab values",
-      "symptom_id": "sign.liver_values_increasing",
-      "symptom_label": "Rising liver lab values",
-      "source": "proposed_question",
-      "case_groups": 1,
-      "note": "Reported by a vet; the analyte is unspecified."
     },
     {
       "id": "sign.scooting",
@@ -270,8 +261,62 @@
       "symptom_id": "sign.nausea",
       "symptom_label": "Nausea",
       "source": "proposed_question",
-      "case_groups": 3,
+      "case_groups": 4,
       "note": "The source cancer-symptom column does not establish that nausea followed treatment."
+    },
+    {
+      "id": "sign.head_bobbing",
+      "label": "Head bobbing",
+      "symptom_id": "sign.head_bobbing",
+      "symptom_label": "Head bobbing",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Reported in treatment history; current presence is a separate answer."
+    },
+    {
+      "id": "sign.excess_energy",
+      "label": "Excess energy",
+      "symptom_id": "sign.excess_energy",
+      "symptom_label": "Excess energy",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Reported in treatment history; current presence is a separate answer."
+    },
+    {
+      "id": "sign.appeared_high",
+      "label": "Appeared intoxicated",
+      "symptom_id": "sign.appeared_high",
+      "symptom_label": "Appeared intoxicated",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Reported in treatment history; current presence is a separate answer."
+    },
+    {
+      "id": "sign.urinating_while_walking",
+      "label": "Urinating while walking",
+      "symptom_id": "sign.urinating_while_walking",
+      "symptom_label": "Urinating while walking",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Reported in treatment history; current presence is a separate answer."
+    },
+    {
+      "id": "sign.difficulty_focusing",
+      "label": "Difficulty focusing",
+      "symptom_id": "sign.difficulty_focusing",
+      "symptom_label": "Difficulty focusing",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Reported in treatment history; current presence is a separate answer."
+    },
+    {
+      "id": "sign.head_trembling",
+      "label": "Head trembling",
+      "symptom_id": "sign.head_trembling",
+      "symptom_label": "Head trembling",
+      "source": "proposed_question",
+      "case_groups": 1,
+      "note": "Reported in treatment history; current presence is a separate answer."
     }
   ],
   "severity_choices": [
@@ -285,35 +330,40 @@
     {
       "id": "sign.constipation",
       "label": "Constipation",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No usable symptom mapping to this question yet."
     },
     {
       "id": "sign.ear_discomfort",
       "label": "Ear discomfort",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No usable symptom mapping to this question yet."
     },
     {
       "id": "sign.confusion",
       "label": "Confusion / disorientation",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No usable symptom mapping to this question yet."
     },
     {
       "id": "sign.nausea_after_treatment",
       "label": "Nausea after treatment",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No usable symptom mapping to this question yet."
     },
     {
       "id": "sign.mouth_sores",
       "label": "Mouth sores",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No usable symptom mapping to this question yet."
     },
     {
       "id": "sign.fatigue_after_chemo",
       "label": "Fatigue after chemo",
-      "reason": "No cancer-context PRO phrases mapped to this question yet."
+      "reason": "No usable symptom mapping to this question yet."
+    },
+    {
+      "id": "sign.liver_values_increasing",
+      "label": "Rising liver lab values",
+      "reason": "No usable symptom mapping to this question yet."
     }
   ],
-  "platform_code_revision": "ebfcc636be77bda0c96547ff929529f3ea5752db",
+  "platform_code_revision": "e7e0cf6f2f4a940652aae14fb434166739181670",
   "deferred": {
     "source": "poop_app",
     "status": "not_connected",
